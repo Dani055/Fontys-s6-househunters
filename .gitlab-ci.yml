@@ -9,7 +9,7 @@ test:
         - ls
         - node --version
 
- dockertest: 
+dockertest: 
     stage: dockertest
     image: docker:25.0.3
     services:
