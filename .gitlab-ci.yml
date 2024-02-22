@@ -11,7 +11,7 @@ test:
 
 dockertest: 
     stage: dockertest
-    image: docker:25.0.3
+    image: docker:25.0.3-dind
     # services:
     #     - docker:25.0.3-dind
     script:
