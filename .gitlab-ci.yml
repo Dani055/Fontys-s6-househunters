@@ -11,9 +11,11 @@ test:
 
 dockertest: 
     stage: dockertest
-    image: docker:25.0.3-dind
+    image: docker:25.0.3
+    services:
+        - docker:25.0.3-dind
     variables:
-    # connect to the docker-in-docker image
+    # connect to the docker daemon inside of the job container (docker-in-docker)
         DOCKER_HOST: tcp://docker:2375
         DOCKER_TLS_CERTDIR: ''
     script:
