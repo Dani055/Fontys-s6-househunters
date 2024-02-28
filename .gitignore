@@ -1,0 +1,30 @@
+# Don't check auto-generated stuff into git
+coverage
+build
+node_modules
+stats.json
+
+# Cruft
+.DS_Store
+.idea
+.vscode
+
+# Dotenv, prevent all .env files
+.env*
+**/.env*
+
+
+# Prevent all .log files
+*.log
+npm-debug.log*
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
+#
+tmp
+
+# Build files
+**/dist/
