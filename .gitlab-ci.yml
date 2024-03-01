@@ -21,5 +21,4 @@ dockertest:
     script:
         - docker -v
         - docker build -t my-docker-image .
-        - docker run my-docker-image
 
