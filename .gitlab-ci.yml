@@ -1,35 +1,52 @@
 stages:
-  - build
+  - test
   - dockertest
 
-.build_template:
+# .build_template:
+#   image: node:iron-alpine
+#   stage: build
+#   before_script:
+#     - cd shared
+#     - npm install
+#     - cd ../
+
+# build-auth-ms:
+#   extends: .build_template
+#   script:
+#     - cd auth-ms
+#     - npm install
+#     - npm run build
+
+# build-listing-ms:
+#   extends: .build_template
+#   script:
+#     - cd listing-ms
+#     - npm install
+#     - npm run build
+
+# build-bid-ms:
+#   extends: .build_template
+#   script:
+#     - cd bid-ms
+#     - npm install
+#     - npm run build
+
+test-auth-ms:
   image: node:iron-alpine
-  stage: build
+  services:
+    - name: mongodb/mongodb-community-server:latest
+      alias: mongo-integration
+  stage: test
+  variables:
+    DB_CON_STRING: "mongodb://mongo-integration:27017/integration-bikehut-users"
   before_script:
     - cd shared
     - npm install
     - cd ../
-
-build-auth-ms:
-  extends: .build_template
-  script:
     - cd auth-ms
+    - cp dotenv.local.example .env.test
     - npm install
-    - npm run build
-
-build-listing-ms:
-  extends: .build_template
-  script:
-    - cd listing-ms
-    - npm install
-    - npm run build
-
-build-bid-ms:
-  extends: .build_template
-  script:
-    - cd bid-ms
-    - npm install
-    - npm run build
+    - npm run test
 
 dockertest:
   stage: dockertest
