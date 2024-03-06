@@ -2,6 +2,12 @@ stages:
   - test
   - dockertest
 
+.common_scripts:
+  npm:
+    - cd shared
+    - npm install
+    - cd ../
+
 # .build_template:
 #   image: node:iron-alpine
 #   stage: build
@@ -17,9 +23,7 @@ stages:
       alias: mongo-integration
   stage: test
   before_script:
-    - cd shared
-    - npm install
-    - cd ../
+    - !reference [.common_scripts, npm]
 
 # build-auth-ms:
 #   extends: .build_template
