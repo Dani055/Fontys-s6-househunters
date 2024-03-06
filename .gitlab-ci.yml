@@ -2,25 +2,30 @@ stages:
   - build
   - dockertest
 
-build-auth-ms:
+.build_template:
   image: node:iron-alpine
   stage: build
+  before_script:
+    - cd shared
+    - npm install
+    - cd ../
+
+build-auth-ms:
+  extends: .build_template
   script:
     - cd auth-ms
     - npm install
     - npm run build
 
 build-listing-ms:
-  image: node:iron-alpine
-  stage: build
+  extends: .build_template
   script:
     - cd listing-ms
     - npm install
     - npm run build
 
 build-bid-ms:
-  image: node:iron-alpine
-  stage: build
+  extends: .build_template
   script:
     - cd bid-ms
     - npm install
