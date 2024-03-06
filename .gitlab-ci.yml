@@ -38,7 +38,7 @@ test-auth-ms:
       alias: mongo-integration
   stage: test
   variables:
-    DB_CON_STRING: "mongodb://mongo-integration:27017/integration-bikehut-users"
+    DB_CON_STRING: "mongodb://localhost:27017/integration-bikehut-users"
   script:
     - cd shared
     - npm install
