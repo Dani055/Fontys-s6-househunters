@@ -4,7 +4,9 @@ let channel = null;
 
 async function connectToRabbitMQ() {
     try {
-        const connection = await amqp.connect('amqp://localhost');
+        const options = { credentials: amqp.credentials.plain(process.env.RABBITMQ_USERNAME, process.env.RABBITMQ_PASSWORD)}
+        const connection = await amqp.connect(`amqp://${process.env.RABBITMQ_HOST}`, options);
+
         channel = await connection.createChannel();
 
         await channel.assertExchange("media_uploaded",'fanout', { durable: false });

@@ -4,7 +4,8 @@ let channel: amqp.Channel | null = null;
 
 async function connectToRabbitMQ() {
     try {
-        const connection = await amqp.connect('amqp://localhost');
+        const options = { credentials: amqp.credentials.plain(process.env.RABBITMQ_USERNAME, process.env.RABBITMQ_PASSWORD)}
+        const connection = await amqp.connect(`amqp://${process.env.RABBITMQ_HOST}`, options);
         channel = await connection.createChannel();
 
         // Create exchange in case it does not exist
