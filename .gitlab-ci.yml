@@ -1,24 +1,37 @@
 stages:
-    - test
-    - dockertest
+  - build
+  - dockertest
 
-test: 
-    image: node:iron-alpine
-    stage: test
-    script:
-        - ls
-        - node --version
+build-auth-ms:
+  image: node:iron-alpine
+  stage: build
+  script:
+    - cd auth-ms
+    - npm run build
 
-dockertest: 
-    stage: dockertest
-    image: docker:25.0.3
-    services:
-        - docker:25.0.3-dind
-    variables:
+build-listing-ms:
+  image: node:iron-alpine
+  stage: build
+  script:
+    - cd listing-ms
+    - npm run build
+
+build-bid-ms:
+  image: node:iron-alpine
+  stage: build
+  script:
+    - cd bid-ms
+    - npm run build
+
+dockertest:
+  stage: dockertest
+  image: docker:25.0.3
+  services:
+    - docker:25.0.3-dind
+  variables:
     # connect to the docker daemon inside of the job container (docker-in-docker)
-        DOCKER_HOST: tcp://docker:2375
-        DOCKER_TLS_CERTDIR: ''
-    script:
-        - docker -v
-        - docker build -t my-docker-image .
-
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - docker -v
+    - docker build -t my-docker-image .
