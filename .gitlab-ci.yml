@@ -7,6 +7,7 @@ build-auth-ms:
   stage: build
   script:
     - cd auth-ms
+    - npm install
     - npm run build
 
 build-listing-ms:
@@ -14,6 +15,7 @@ build-listing-ms:
   stage: build
   script:
     - cd listing-ms
+    - npm install
     - npm run build
 
 build-bid-ms:
@@ -21,6 +23,7 @@ build-bid-ms:
   stage: build
   script:
     - cd bid-ms
+    - npm install
     - npm run build
 
 dockertest:
