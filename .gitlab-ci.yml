@@ -10,6 +10,17 @@ stages:
 #     - npm install
 #     - cd ../
 
+.test_template:
+  image: node:iron-alpine
+  services:
+    - name: mongodb/mongodb-community-server:latest
+      alias: mongo-integration
+  stage: test
+  before_script:
+    - cd shared
+    - npm install
+    - cd ../
+
 # build-auth-ms:
 #   extends: .build_template
 #   script:
@@ -32,17 +43,10 @@ stages:
 #     - npm run build
 
 test-auth-ms:
-  image: node:iron-alpine
-  services:
-    - name: mongodb/mongodb-community-server:latest
-      alias: mongo-integration
-  stage: test
+  extends: .test_template
   variables:
-    DB_CON_STRING: "mongodb://localhost:27017/integration-bikehut-users"
+    DB_CON_STRING: "mongodb://mongo-integration:27017/integration-bikehut-users"
   script:
-    - cd shared
-    - npm install
-    - cd ../
     - cd auth-ms
     - cp dotenv.local.example .env.test
     - npm install
