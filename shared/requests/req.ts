@@ -14,7 +14,6 @@ export interface createListingPayload {
     size: number
     startingPrice: number
     buyoutPrice: number
-    hasSold: boolean
     location: string
     startsOn: Date
     endsOn: Date

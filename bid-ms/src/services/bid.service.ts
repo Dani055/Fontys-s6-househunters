@@ -24,7 +24,3 @@ export const postBid = async (userId: string, listingId: string, bidInfo: create
     }
     return await createBid(userId, listingId, bidInfo)
 };
-export const getBidsForListing = async (listingId: string) => {
-    const bids = await getBidsByListingId(listingId);
-    return bids;
-};
