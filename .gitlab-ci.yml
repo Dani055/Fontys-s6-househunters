@@ -39,7 +39,7 @@ test-auth-ms:
   stage: test
   variables:
     DB_CON_STRING: "mongodb://mongo-integration:27017/integration-bikehut-users"
-  before_script:
+  script:
     - cd shared
     - npm install
     - cd ../
