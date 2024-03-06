@@ -1,20 +1,32 @@
 stages:
+  - build
   - test
   - dockertest
 
+# Common scripts
 .common_scripts:
-  npm:
+  npm_shared:
     - cd shared
     - npm install
     - cd ../
+  npm_auth_ms:
+    - cd auth-ms
+    - npm install
+  npm_listing_ms:
+    - cd listing-ms
+    - npm install
+  npm_bid_ms:
+    - cd bid-ms
+    - npm install
 
-# .build_template:
-#   image: node:iron-alpine
-#   stage: build
-#   before_script:
-#     - cd shared
-#     - npm install
-#     - cd ../
+# Templates
+.build_template:
+  image: node:iron-alpine
+  stage: build
+  before_script:
+    - cd shared
+    - npm install
+    - cd ../
 
 .test_template:
   image: node:iron-alpine
@@ -23,37 +35,35 @@ stages:
       alias: mongo-integration
   stage: test
   before_script:
-    - !reference [.common_scripts, npm]
+    - !reference [.common_scripts, npm_shared]
 
-# build-auth-ms:
-#   extends: .build_template
-#   script:
-#     - cd auth-ms
-#     - npm install
-#     - npm run build
+# Build
+build-auth-ms:
+  extends: .build_template
+  script:
+    - !reference [.common_scripts, npm_auth_ms]
+    - npm run build
 
-# build-listing-ms:
-#   extends: .build_template
-#   script:
-#     - cd listing-ms
-#     - npm install
-#     - npm run build
+build-listing-ms:
+  extends: .build_template
+  script:
+    - !reference [.common_scripts, npm_listing_ms]
+    - npm run build
 
-# build-bid-ms:
-#   extends: .build_template
-#   script:
-#     - cd bid-ms
-#     - npm install
-#     - npm run build
+build-bid-ms:
+  extends: .build_template
+  script:
+    - !reference [.common_scripts, npm_bid_ms]
+    - npm run build
 
+# Test
 test-auth-ms:
   extends: .test_template
   variables:
     DB_CON_STRING: "mongodb://mongo-integration:27017/integration-bikehut-users"
   script:
-    - cd auth-ms
+    - !reference [.common_scripts, npm_auth_ms]
     - cp dotenv.local.example .env.test
-    - npm install
     - npm run test
 
 dockertest:
