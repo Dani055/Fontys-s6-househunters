@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 
-mongoose.Promise = global.Promise;
-
 export default async function connectToDB() {
     try {
         let conString = process.env.DB_CON_STRING
