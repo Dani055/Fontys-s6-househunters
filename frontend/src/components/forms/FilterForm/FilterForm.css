@@ -1,0 +1,7 @@
+.accordion.rounded button{
+    border-radius: 5px !important;
+}
+.background-main-alpha{
+    background-color: var(--main-color-alpha);
+    opacity: 1;
+}
