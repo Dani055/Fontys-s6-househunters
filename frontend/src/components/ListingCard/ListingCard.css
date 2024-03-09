@@ -1,0 +1,19 @@
+.listing-card a:hover{
+    color: var(--jet-color);
+    opacity: 0.9;
+}
+
+.card-img-top{
+    height: 10rem;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.card-img-top img{
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    height: auto;
+}
