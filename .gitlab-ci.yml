@@ -38,7 +38,7 @@ stages:
   before_script:
     - !reference [.common_scripts, npm_shared]
 
-Build
+# Build
 build-auth-ms:
   extends: .build_template
   script:
@@ -57,7 +57,7 @@ build-bid-ms:
     - !reference [.common_scripts, npm_bid_ms]
     - npm run build
 
-Test
+# Test
 test-auth-ms:
   extends: .test_template
   variables:
