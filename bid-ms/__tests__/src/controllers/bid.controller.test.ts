@@ -3,10 +3,9 @@ import mongoose, { Types } from "mongoose";
 import request from "supertest";
 import * as bidService from "bid-ms/src/services/bid.service";
 import * as bidRepo from "bid-ms/src/repository/bid.repository";
-import { mockJwt } from "listing-ms/jest/common";
+import { mockJwt } from "bid-ms/jest/common";
 import * as isAuth from "shared/middleware/is-auth";
-import { userForJwt } from "listing-ms/jest/dummyData";
-import { IComment } from "listing-ms/src/models/Comment";
+import { userForJwt } from "bid-ms/jest/dummyData";
 import dayjs from "dayjs";
 import { IBid } from "bid-ms/src/models/Bid";
 
