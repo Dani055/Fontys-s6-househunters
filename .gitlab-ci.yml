@@ -1,6 +1,6 @@
 stages:
-  # - build
-  # - test
+  - build
+  - test
   - e2e
   - dockertest
 
@@ -38,52 +38,52 @@ stages:
   before_script:
     - !reference [.common_scripts, npm_shared]
 
-# Build
-# build-auth-ms:
-#   extends: .build_template
-#   script:
-#     - !reference [.common_scripts, npm_auth_ms]
-#     - npm run build
+Build
+build-auth-ms:
+  extends: .build_template
+  script:
+    - !reference [.common_scripts, npm_auth_ms]
+    - npm run build
 
-# build-listing-ms:
-#   extends: .build_template
-#   script:
-#     - !reference [.common_scripts, npm_listing_ms]
-#     - npm run build
+build-listing-ms:
+  extends: .build_template
+  script:
+    - !reference [.common_scripts, npm_listing_ms]
+    - npm run build
 
-# build-bid-ms:
-#   extends: .build_template
-#   script:
-#     - !reference [.common_scripts, npm_bid_ms]
-#     - npm run build
+build-bid-ms:
+  extends: .build_template
+  script:
+    - !reference [.common_scripts, npm_bid_ms]
+    - npm run build
 
-# Test
-# test-auth-ms:
-#   extends: .test_template
-#   variables:
-#     DB_CON_STRING: "mongodb://mongo-integration:27017/integration-hh-users"
-#   script:
-#     - !reference [.common_scripts, npm_auth_ms]
-#     - cp dotenv.test.example .env.test
-#     - npm run test
+Test
+test-auth-ms:
+  extends: .test_template
+  variables:
+    DB_CON_STRING: "mongodb://mongo-integration:27017/integration-hh-users"
+  script:
+    - !reference [.common_scripts, npm_auth_ms]
+    - cp dotenv.test.example .env.test
+    - npm run test
 
-# test-listing-ms:
-#   extends: .test_template
-#   variables:
-#     DB_CON_STRING: "mongodb://mongo-integration:27017/integration-hh-listings"
-#   script:
-#     - !reference [.common_scripts, npm_listing_ms]
-#     - cp dotenv.test.example .env.test
-#     - npm run test
+test-listing-ms:
+  extends: .test_template
+  variables:
+    DB_CON_STRING: "mongodb://mongo-integration:27017/integration-hh-listings"
+  script:
+    - !reference [.common_scripts, npm_listing_ms]
+    - cp dotenv.test.example .env.test
+    - npm run test
 
-# test-bid-ms:
-#   extends: .test_template
-#   variables:
-#     DB_CON_STRING: "mongodb://mongo-integration:27017/integration-hh-bids"
-#   script:
-#     - !reference [.common_scripts, npm_bid_ms]
-#     - cp dotenv.test.example .env.test
-#     - npm run test
+test-bid-ms:
+  extends: .test_template
+  variables:
+    DB_CON_STRING: "mongodb://mongo-integration:27017/integration-hh-bids"
+  script:
+    - !reference [.common_scripts, npm_bid_ms]
+    - cp dotenv.test.example .env.test
+    - npm run test
 
 test-e2e:
   stage: e2e
