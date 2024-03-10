@@ -18,4 +18,4 @@ RUN npm install
 RUN apk update && apk add --no-cache xdg-utils && apk add curl && apk add bash
 RUN npm run build 
 EXPOSE $PORT
-CMD ["./entrypoint-e2e.sh"]
+CMD ["./entrypoint-e2.sh"]
