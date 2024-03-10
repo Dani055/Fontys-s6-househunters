@@ -103,6 +103,3 @@ test-e2e:
     - docker compose -f docker-compose-e2e.yml -f docker-compose-e2e-ci.yml up -d
     - docker exec e2e_tests sh -c 'npm i'
     - docker exec e2e_tests sh -c 'npm run test:e2e'
-
-dockertest:
-
