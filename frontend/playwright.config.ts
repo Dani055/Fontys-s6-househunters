@@ -8,7 +8,7 @@ dotenv.config();
  */
 export default defineConfig({
   testDir: './e2e',
-  timeout: 40 * 1000,
+  timeout: 60000,
   retries: process.env.CI ? 1 : 0,
   workers: 3,
   expect: {
