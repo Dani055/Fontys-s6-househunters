@@ -100,7 +100,6 @@ test-e2e:
       - frontend/test-results/
     expire_in: 1 day
   script:
-    - docker compose -f docker-compose-e2e.yml -f docker-compose-e2e-ci.yml up
-    - sleep 30
+    - docker compose -f docker-compose-e2e.yml -f docker-compose-e2e-ci.yml up -d
     - docker exec e2e_tests sh -c 'npm i'
     - docker exec e2e_tests sh -c 'npm run test:e2e'
