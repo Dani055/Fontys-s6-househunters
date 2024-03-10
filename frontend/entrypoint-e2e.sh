@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Define the backend URL
-BACKEND_HEALTH_URL="http://hh_listingms_e2e:9997/api/ping"
+BACKEND_HEALTH_URL="http://localhost:9997/api/ping"
 
 RETRY_DELAY=5
 MAX_ATTEMPTS=5

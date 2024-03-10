@@ -3,19 +3,27 @@ version: "3.8"
 services:
   frontend:
     container_name: hh_frontend_e2e
-    ports:
-      - '3000:3000'
+    network_mode: "host"
     build:
       context: .
       dockerfile: ./frontend/Dockerfile.e2e
       args:
         PORT: 3000
-        VITE_AUTHMS_URL: http://hh_authms_e2e:9998
-        VITE_LISTINGMS_URL: http://hh_listingms_e2e:9997
-        VITE_BIDMS_URL: http://hh_bidms_e2e:9996
-        VITE_MEDIAMS_URL: http://hh_mediams_e2e:9999
     depends_on:
       - auth-ms
       - listing-ms
       - bid-ms
       - media-ms
+  playwright:
+    container_name: e2e_tests
+    image: mcr.microsoft.com/playwright:v1.42.1-jammy
+    network_mode: "host"
+    depends_on:
+      - frontend
+    volumes:
+      - ./frontend:/frontend
+    working_dir: /frontend
+    ipc: host
+    tty: true
+    stdin_open: true
+    entrypoint: /bin/bash

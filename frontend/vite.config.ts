@@ -13,32 +13,32 @@ export default defineConfig(({ mode }) => {
       host: true,
       proxy:{
         '/api/auth': {
-          target: env.VITE_AUTHMS_URL,
+          target: 'http://localhost:9998',
           secure: false,
           changeOrigin: true,
         },
         '/api/user': {
-          target: env.VITE_AUTHMS_URL,
+          target: 'http://localhost:9998',
           secure: false,
           changeOrigin: true,
         },
         '/api/listing': {
-          target: env.VITE_LISTINGMS_URL,
+          target: 'http://localhost:9997',
           secure: false,
           changeOrigin: true,
         },
         '/api/comment': {
-          target: env.VITE_LISTINGMS_URL,
+          target: 'http://localhost:9997',
           secure: false,
           changeOrigin: true,
         },
         '/api/bid': {
-          target: env.VITE_BIDMS_URL,
+          target: 'http://localhost:9996',
           secure: false,
           changeOrigin: true,
         },
         '/api/media': {
-          target: env.VITE_MEDIAMS_URL,
+          target: 'http://localhost:9999',
           secure: false,
           changeOrigin: true,
         },

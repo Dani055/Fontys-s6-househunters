@@ -73,7 +73,7 @@ test("Views listing details", async () => {
   await expect(page.locator(`span:has-text("Pending")`)).toBeVisible();
   await expect(
     page.getByText(
-      `Bidding starts on ${startsOn.format("DD/MM/YYYY hh:mm").toString()}`
+      `Bidding starts on ${startsOn.format("DD/MM/YYYY HH:mm").toString()}`
     )
   ).toBeVisible();
   await expect(page.locator('a:has-text("first_user")')).toBeVisible();
@@ -89,11 +89,11 @@ test("Views listing details", async () => {
   await expect(page.getByText(`Buyout price : ${buyoutPrice}€`)).toBeVisible();
   await expect(
     page.getByText(
-      `Bidding start date : ${startsOn.format("DD/MM/YYYY hh:mm")}`
+      `Bidding start date : ${startsOn.format("DD/MM/YYYY HH:mm")}`
     )
   ).toBeVisible();
   await expect(
-    page.getByText(`Bidding end date : ${endsOn.format("DD/MM/YYYY hh:mm")}`)
+    page.getByText(`Bidding end date : ${endsOn.format("DD/MM/YYYY HH:mm")}`)
   ).toBeVisible();
 });
 
@@ -141,7 +141,7 @@ test("Edits listing details", async () => {
   await expect(page.locator(`span:has-text("Pending")`)).toBeVisible();
   await expect(
     page.getByText(
-      `Bidding starts on ${startsOn.format("DD/MM/YYYY hh:mm").toString()}`
+      `Bidding starts on ${startsOn.format("DD/MM/YYYY HH:mm").toString()}`
     )
   ).toBeVisible();
   await expect(page.locator('a:has-text("first_user")')).toBeVisible();
@@ -157,11 +157,11 @@ test("Edits listing details", async () => {
   await expect(page.getByText(`Buyout price : ${buyoutPrice}€`)).toBeVisible();
   await expect(
     page.getByText(
-      `Bidding start date : ${startsOn.format("DD/MM/YYYY hh:mm")}`
+      `Bidding start date : ${startsOn.format("DD/MM/YYYY HH:mm")}`
     )
   ).toBeVisible();
   await expect(
-    page.getByText(`Bidding end date : ${endsOn.format("DD/MM/YYYY hh:mm")}`)
+    page.getByText(`Bidding end date : ${endsOn.format("DD/MM/YYYY HH:mm")}`)
   ).toBeVisible();
 });
 
