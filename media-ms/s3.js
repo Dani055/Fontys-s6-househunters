@@ -35,6 +35,7 @@ export async function uploadMediaS3(files) {
         return links;
 
     } catch (error) {
+        console.log(error)
         throw new Error('Error uploading file:', error);
     }
 }

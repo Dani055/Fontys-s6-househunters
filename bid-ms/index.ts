@@ -11,6 +11,7 @@ import bidRoutes from './src/routes/bid'
 import connectToDB from './src/database/database';
 import { channel, connectToRabbitMQ } from './src/messaging/connect';
 import { subToExchanges } from './src/routes/subscribtions';
+import { seedDatabase } from './src/database/seed';
 
 const port = process.env.PORT;
 const app: Express = express();
@@ -45,9 +46,12 @@ app.use(errorHandler);
 export const start = async () => {
   await connectToDB();
   if(process.env.NODE_ENV !== 'test'){
+    if(process.env.SEED_DATA_E2E){
+      await seedDatabase();
+    }
+    await connectToRabbitMQ();
     app.listen(port, async () => {
        console.log(`REST API listening on port: ${port}`)
-       await connectToRabbitMQ();
        if(channel){
         await subToExchanges(channel);
        }

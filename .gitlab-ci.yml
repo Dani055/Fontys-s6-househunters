@@ -63,7 +63,7 @@ test-auth-ms:
     DB_CON_STRING: "mongodb://mongo-integration:27017/integration-bikehut-users"
   script:
     - !reference [.common_scripts, npm_auth_ms]
-    - cp dotenv.local.example .env.test
+    - cp dotenv.test.example .env.test
     - npm run test
 
 dockertest:

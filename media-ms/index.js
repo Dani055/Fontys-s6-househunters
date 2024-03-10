@@ -44,9 +44,9 @@ app.use((error, req, res, next) => {
     next();
 });
 
+await connectToRabbitMQ();
 app.listen(port, async () => { 
   console.log(`REST API listening on port: ${port}`) 
-  await connectToRabbitMQ();
   if(channel){
     await subToChannel(channel);
   }

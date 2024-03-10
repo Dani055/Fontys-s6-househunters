@@ -1,14 +1,14 @@
 # Node 20.x LTS
 FROM node:iron-alpine as base
 
-ARG PORT=9998 
+ARG PORT=9997
 
 WORKDIR /
 
 FROM base as tsbuild
 
 # Copy dependencies that we need
-COPY auth-ms auth-ms
+COPY listing-ms listing-ms
 
 COPY shared shared
 
@@ -17,7 +17,7 @@ RUN npm install -g npm@10.2.5
 WORKDIR /shared
 RUN npm install
 
-WORKDIR /auth-ms
+WORKDIR /listing-ms
 RUN npm install
 RUN npm run build
 
@@ -29,8 +29,8 @@ ARG PORT
 ENV PORT=$PORT
 
 # Copy dist folder from typescript compilation
-COPY --from=tsbuild /auth-ms/dist /dist
-COPY --from=tsbuild /auth-ms/package*.json /
+COPY --from=tsbuild /listing-ms/dist /dist
+COPY --from=tsbuild /listing-ms/package*.json /
 
 RUN npm install --production
 

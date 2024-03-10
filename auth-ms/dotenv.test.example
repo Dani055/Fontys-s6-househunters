@@ -1,6 +1,5 @@
-DB_CON_STRING="mongodb://localhost:27017/hh-users"
+DB_CON_STRING="mongodb://localhost:27017/integration-hh-users"
 PORT=9998
-NODE_ENV="development"
 PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDQX03v5/iQB3dq
 wXct4u7EUyhT99WKzJ88TKXDpU7Uwb+QP18jleKlYCQQ2YzkbnW3ziqyz5p1nMji
 jONeoWA+S+JWeC+5/Lt1YuDFecHOMU2i4VuK1MzpYOURFtwJ5qnQOHqB6DhVJh0x

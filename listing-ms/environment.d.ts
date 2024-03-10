@@ -6,6 +6,9 @@ declare global {
         PORT: string;
         PUBLIC_KEY: string;
         SEED_DATA_E2E: string;
+        RABBITMQ_HOST: string;
+        RABBITMQ_USERNAME: string;
+        RABBITMQ_PASSWORD: string;
       }
     }
   }

@@ -1,0 +1,7 @@
+# CI/CD variables used in docker-compose that cannot be committed.
+# Used only for local e2e, pipeline has these variables defined
+
+AWS_ACCESS_KEY_ID=
+S3_BUCKET=
+S3_REGION=
+AWS_SECRET_ACCESS_KEY=
