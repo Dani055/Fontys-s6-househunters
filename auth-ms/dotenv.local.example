@@ -1,4 +1,5 @@
 DB_CON_STRING="mongodb://localhost:27017/hh-users"
+FRONTEND_URL="http://localhost:3000"
 PORT=9998
 NODE_ENV="development"
 PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDQX03v5/iQB3dq

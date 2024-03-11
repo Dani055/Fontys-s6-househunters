@@ -5,7 +5,6 @@ import dotenv from 'dotenv';
 dotenv.config({path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'})
 
 import bodyParser from 'body-parser';
-import cors from 'cors';
 
 import listingRoutes from './src/routes/listing'
 import commentRoutes from './src/routes/comment'
@@ -18,10 +17,11 @@ const port = process.env.PORT;
 const app: Express = express();
 const router = Router()
 
-app.use(cors());
+app.disable('x-powered-by');
+
 app.use(bodyParser.json());
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', process.env.FRONTEND_URL);
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();

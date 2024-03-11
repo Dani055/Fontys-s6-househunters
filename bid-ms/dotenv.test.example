@@ -1,4 +1,5 @@
 DB_CON_STRING="mongodb://localhost:27017/integration-hh-bids"
+FRONTEND_URL="http://localhost:3000"
 PORT=9996
 PUBLIC_KEY="-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0F9N7+f4kAd3asF3LeLu
 xFMoU/fVisyfPEylw6VO1MG/kD9fI5XipWAkENmM5G51t84qss+adZzI4ozjXqFg

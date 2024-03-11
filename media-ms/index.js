@@ -2,7 +2,6 @@ import dotenv from 'dotenv';
 dotenv.config()
 import express from 'express';
 import bodyParser from 'body-parser';
-import cors from 'cors';
 
 const port = process.env.PORT || 9999;
 const app = express();
@@ -11,11 +10,13 @@ import multer from 'multer';
 import feedRoutes, { subToChannel } from './routes/feed.js'
 import { channel, connectToRabbitMQ } from './messaging/connect.js';
 
-app.use(cors());
+
+app.disable('x-powered-by');
+
 app.use(bodyParser.json());
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST, DELETE');
+  res.setHeader('Access-Control-Allow-Origin', process.env.FRONTEND_URL);
+  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization', 'Content-Type: multipart/form-data');
   next();
 });

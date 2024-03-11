@@ -5,20 +5,20 @@ import dotenv from 'dotenv';
 dotenv.config({path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'})
 
 import bodyParser from 'body-parser';
-import cors from 'cors';
 
 import authRoutes from './src/routes/auth'
 import userRoutes from './src/routes/user'
 import connectToDB from './src/database/database';
 import { seedAdminUser } from './src/models/User';
 
+
 const port = process.env.PORT;
 const app: Express = express();
 
-app.use(cors());
+app.disable('x-powered-by');
 app.use(bodyParser.json());
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Origin', process.env.FRONTEND_URL);
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
