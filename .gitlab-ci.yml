@@ -104,7 +104,7 @@ stages:
 #     - docker exec e2e_tests sh -c 'npm i'
 #     - docker exec e2e_tests sh -c 'npm run test:e2e'
 
-test-owasp-zap:
+security-owasp-zap:
   stage: security
   image: docker:25.0.3
   services:
@@ -116,4 +116,4 @@ test-owasp-zap:
   script:
     - docker compose -f docker-compose-e2e.yml -f docker-compose-e2e-ci.yml up -d
     - sleep 20
-    - docker run --network=host -t --rm softwaresecurityproject/zap-stable zap-baseline.py -t http://localhost:3000
+    - docker run --network=host -t --rm softwaresecurityproject/zap-stable zap-full-scan.py -t http://localhost:3000
