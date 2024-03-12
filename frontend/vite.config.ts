@@ -48,6 +48,11 @@ export default defineConfig(({ mode }) => {
       port: parseInt(env.PORT, 10) || 3000,
     },
     preview: {
+      headers:{
+        'Content-Security-Policy': 'upgrade-insecure-requests',
+        "X-Frame-Options": "DENY",
+        "X-XSS-Protection": "1; mode=block"
+      },
       port: parseInt(env.PORT, 10) || 3000,
     },
     test: {
