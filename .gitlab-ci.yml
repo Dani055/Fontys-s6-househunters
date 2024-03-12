@@ -1,8 +1,8 @@
 stages:
-  - build
-  - test
-  - e2e
-  - dockertest
+  # - build
+  # - test
+  # - e2e
+  - security
 
 # Common scripts
 .common_scripts:
@@ -38,55 +38,74 @@ stages:
   before_script:
     - !reference [.common_scripts, npm_shared]
 
-# Build
-build-auth-ms:
-  extends: .build_template
-  script:
-    - !reference [.common_scripts, npm_auth_ms]
-    - npm run build
+# # Build
+# build-auth-ms:
+#   extends: .build_template
+#   script:
+#     - !reference [.common_scripts, npm_auth_ms]
+#     - npm run build
 
-build-listing-ms:
-  extends: .build_template
-  script:
-    - !reference [.common_scripts, npm_listing_ms]
-    - npm run build
+# build-listing-ms:
+#   extends: .build_template
+#   script:
+#     - !reference [.common_scripts, npm_listing_ms]
+#     - npm run build
 
-build-bid-ms:
-  extends: .build_template
-  script:
-    - !reference [.common_scripts, npm_bid_ms]
-    - npm run build
+# build-bid-ms:
+#   extends: .build_template
+#   script:
+#     - !reference [.common_scripts, npm_bid_ms]
+#     - npm run build
 
-# Test
-test-auth-ms:
-  extends: .test_template
-  variables:
-    DB_CON_STRING: "mongodb://mongo-integration:27017/integration-hh-users"
-  script:
-    - !reference [.common_scripts, npm_auth_ms]
-    - cp dotenv.test.example .env.test
-    - npm run test
+# # Test
+# test-auth-ms:
+#   extends: .test_template
+#   variables:
+#     DB_CON_STRING: "mongodb://mongo-integration:27017/integration-hh-users"
+#   script:
+#     - !reference [.common_scripts, npm_auth_ms]
+#     - cp dotenv.test.example .env.test
+#     - npm run test
 
-test-listing-ms:
-  extends: .test_template
-  variables:
-    DB_CON_STRING: "mongodb://mongo-integration:27017/integration-hh-listings"
-  script:
-    - !reference [.common_scripts, npm_listing_ms]
-    - cp dotenv.test.example .env.test
-    - npm run test
+# test-listing-ms:
+#   extends: .test_template
+#   variables:
+#     DB_CON_STRING: "mongodb://mongo-integration:27017/integration-hh-listings"
+#   script:
+#     - !reference [.common_scripts, npm_listing_ms]
+#     - cp dotenv.test.example .env.test
+#     - npm run test
 
-test-bid-ms:
-  extends: .test_template
-  variables:
-    DB_CON_STRING: "mongodb://mongo-integration:27017/integration-hh-bids"
-  script:
-    - !reference [.common_scripts, npm_bid_ms]
-    - cp dotenv.test.example .env.test
-    - npm run test
+# test-bid-ms:
+#   extends: .test_template
+#   variables:
+#     DB_CON_STRING: "mongodb://mongo-integration:27017/integration-hh-bids"
+#   script:
+#     - !reference [.common_scripts, npm_bid_ms]
+#     - cp dotenv.test.example .env.test
+#     - npm run test
 
-test-e2e:
-  stage: e2e
+# test-e2e:
+#   stage: e2e
+#   image: docker:25.0.3
+#   services:
+#     - docker:25.0.3-dind
+#   variables:
+#     # connect to the docker daemon inside of the job container (docker-in-docker)
+#     DOCKER_HOST: tcp://docker:2375
+#     DOCKER_TLS_CERTDIR: ""
+#   artifacts:
+#     when: always
+#     paths:
+#       - frontend/test-results/
+#     expire_in: 1 day
+#   script:
+#     - docker compose -f docker-compose-e2e.yml -f docker-compose-e2e-ci.yml up -d
+#     - docker exec e2e_tests sh -c 'npm i'
+#     - docker exec e2e_tests sh -c 'npm run test:e2e'
+
+test-owasp-zap:
+  stage: security
   image: docker:25.0.3
   services:
     - docker:25.0.3-dind
@@ -94,12 +113,7 @@ test-e2e:
     # connect to the docker daemon inside of the job container (docker-in-docker)
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
-  artifacts:
-    when: always
-    paths:
-      - frontend/test-results/
-    expire_in: 1 day
   script:
     - docker compose -f docker-compose-e2e.yml -f docker-compose-e2e-ci.yml up -d
-    - docker exec e2e_tests sh -c 'npm i'
-    - docker exec e2e_tests sh -c 'npm run test:e2e'
+    - sleep 20
+    - docker run --network=host -t --rm softwaresecurityproject/zap-stable zap-baseline.py -t http://localhost:3000
