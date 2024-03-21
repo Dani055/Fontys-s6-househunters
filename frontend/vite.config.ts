@@ -45,7 +45,7 @@ export default defineConfig(({ mode }) => {
       },
       // this ensures that the browser opens upon server start
       open: true,
-      port: parseInt(env.PORT, 10) || 3000,
+      port: parseInt(env.VITE_PORT, 10) || 3000,
     },
     preview: {
       headers:{
@@ -53,7 +53,7 @@ export default defineConfig(({ mode }) => {
         "X-Frame-Options": "DENY",
         "X-XSS-Protection": "1; mode=block"
       },
-      port: parseInt(env.PORT, 10) || 3000,
+      port: parseInt(env.VITE_PORT, 10) || 3000,
     },
     test: {
       environment: 'jsdom',

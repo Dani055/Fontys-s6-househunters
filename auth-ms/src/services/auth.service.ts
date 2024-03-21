@@ -13,7 +13,7 @@ export const loginUser = async (email: string, password: string): Promise<string
     if(!matchPassword){
         throw new ResponseError(404, 'Wrong email or password!');
     }
-    const privateKey = process.env.PRIVATE_KEY;
+    const privateKey = process.env.PRIVATE_KEY.replace(/\\n/g, '\n');
     const payload = {
         sub: user._id,
         email: user.email,

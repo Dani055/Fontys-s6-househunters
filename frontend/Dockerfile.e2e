@@ -3,7 +3,7 @@ FROM node:iron-alpine as base
 
 ARG PORT
 
-ENV PORT=$PORT
+ENV VITE_PORT=$PORT
 
 WORKDIR /
 

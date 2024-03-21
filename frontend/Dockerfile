@@ -5,7 +5,7 @@ ARG PORT \
     VITE_BACKEND_CLUSTER_URL
 
 # Set env vars here because if they are not present during build time, vite ignores them when running in production
-ENV PORT=$PORT \
+ENV VITE_PORT=$PORT \
     VITE_BACKEND_CLUSTER_URL=$VITE_BACKEND_CLUSTER_URL
 
 WORKDIR /
