@@ -1,4 +1,5 @@
-DB_CON_STRING="mongodb://localhost:27017/integration-hh-listings"
+DB_CON_STRING="mongodb://localhost:27017/"
+DB_NAME="integration-hh-listings"
 FRONTEND_URL="http://localhost:3000"
 PORT=9997
 RABBITMQ_HOST="localhost"

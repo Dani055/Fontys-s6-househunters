@@ -33,7 +33,7 @@ services:
     env_file:
       - ./auth-ms/dotenv.test.example
     environment:
-      DB_CON_STRING: mongodb://hh_database_e2e:27017/hh-users
+      DB_CON_STRING: mongodb://hh_database_e2e:27017/
 
   listing-ms:
     container_name: hh_listingms_e2e
@@ -48,11 +48,9 @@ services:
     env_file:
       - ./listing-ms/dotenv.test.example
     environment:
-      DB_CON_STRING: mongodb://hh_database_e2e:27017/hh-listings
+      DB_CON_STRING: mongodb://hh_database_e2e:27017/
       SEED_DATA_E2E: true
       RABBITMQ_HOST: hh_rabbitmq_e2e
-      RABBITMQ_USERNAME: hhuser
-      RABBITMQ_PASSWORD: hhpassword
   
   bid-ms:
     container_name: hh_bidms_e2e
@@ -67,11 +65,9 @@ services:
     env_file:
       - ./bid-ms/dotenv.test.example
     environment:
-      DB_CON_STRING: mongodb://hh_database_e2e:27017/hh-bids
+      DB_CON_STRING: mongodb://hh_database_e2e:27017/
       SEED_DATA_E2E: true
       RABBITMQ_HOST: hh_rabbitmq_e2e
-      RABBITMQ_USERNAME: hhuser
-      RABBITMQ_PASSWORD: hhpassword
 
   media-ms:
     container_name: hh_mediams_e2e
