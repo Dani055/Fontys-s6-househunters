@@ -15,6 +15,7 @@ app.disable('x-powered-by');
 
 app.use(bodyParser.json());
 app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'none');
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization', 'Content-Type: multipart/form-data');
   next();
