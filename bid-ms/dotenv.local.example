@@ -1,6 +1,5 @@
 DB_CON_STRING="mongodb://localhost:27017/"
 DB_NAME="hh-bids"
-FRONTEND_URL="http://localhost:3000"
 PORT=9996
 NODE_ENV="development"
 RABBITMQ_HOST="localhost"

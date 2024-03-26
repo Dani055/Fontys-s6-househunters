@@ -10,8 +10,6 @@ WORKDIR /
 # Copy dependencies that we need
 COPY frontend frontend
 
-RUN npm install -g npm@10.2.5
-
 WORKDIR /frontend
 
 RUN npm install

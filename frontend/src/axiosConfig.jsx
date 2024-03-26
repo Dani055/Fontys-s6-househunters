@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// Env variable not used, in the cluster frontend sends requests to its own server
 const instance = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_CLUSTER_URL
 });

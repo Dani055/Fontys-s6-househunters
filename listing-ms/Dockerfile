@@ -12,8 +12,6 @@ COPY listing-ms listing-ms
 
 COPY shared shared
 
-RUN npm install -g npm@10.2.5
-
 WORKDIR /shared
 RUN npm install
 
