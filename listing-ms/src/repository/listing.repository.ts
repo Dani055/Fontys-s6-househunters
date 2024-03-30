@@ -3,6 +3,7 @@ import CommentEntity, { IComment } from '../models/Comment';
 import ListingEntity, { IListing } from '../models/Listing';
 import { createListingPayload } from 'shared/requests/req';
 import dayjs from 'dayjs';
+import { channel } from '../messaging/connect';
 
 export const createListing = async (userId: string, payload: createListingPayload) => {
     const listing = await ListingEntity.create({...payload, images: [], creatorId: userId, comments: []});
@@ -18,9 +19,11 @@ export const assignListingPhotos = async (listingId: string, links: string[]) =>
     const listing = await ListingEntity.findByIdAndUpdate(listingId, {images: links}, {new: true});
     return listing as IListing
 };
-export const deleteListing = async (listingId: string) => {
+export const deleteListing = async (originalListing: IListing, listingId: string) => {
+    const imagesToDelete = originalListing.images;
     await ListingEntity.deleteOne({_id: listingId});
     await CommentEntity.deleteMany({listingId: listingId});
+    channel?.publish('listing_deleted', '', Buffer.from(JSON.stringify({listingId, imagesToDelete})));
     return true;
 };
 export const getListingbyId = async (listingId: string) => {

@@ -9,6 +9,7 @@ import {
   editListing,
   getListingbyId,
 } from "listing-ms/src/repository/listing.repository";
+import { listingToReturn } from "listing-ms/jest/dummyData";
 import { IListing } from "listing-ms/src/models/Listing";
 import { ResponseError } from "shared/responses/responseError";
 
@@ -150,10 +151,13 @@ describe("Listing repository", () => {
   });
   describe("deleteListing", () => {
     it("Deletes listing successfully", async () => {
-        // Arrange
-
+      // Arrange
+        const listingWImages: IListing = {
+          ...listingToReturn,
+          images: ['image123']
+        };
       // Act
-      const result = await deleteListing(createdListingId);
+      const result = await deleteListing(listingWImages, createdListingId);
 
       // Assert
       expect(result).toEqual(true);

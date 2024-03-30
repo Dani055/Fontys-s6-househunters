@@ -134,7 +134,7 @@ describe("Listing controller", () => {
       // Arrange
       const id = "211111111111111111111111";
 
-      mockedService.removeListing.mockResolvedValue([]);
+      mockedService.removeListing.mockResolvedValue(true);
       mockJwt(mockedJwt, userForJwt);
 
       // Act

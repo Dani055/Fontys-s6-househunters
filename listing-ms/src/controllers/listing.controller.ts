@@ -42,9 +42,8 @@ export const handleChangeListing: RequestHandler = async (req, res, next) => {
 export const handleRemoveListing: RequestHandler = async (req, res, next) => {
   try {
     const listingId = req.params.listingId as string;
-    const imagesToDelete = await removeListing(req.userId, req.userRoles, listingId);
-    channel?.publish('listing_deleted', '', Buffer.from(JSON.stringify({listingId, imagesToDelete})));
-    
+    await removeListing(req.userId, req.userRoles, listingId);
+
     const response = {
       message: 'Listing deleted'
     }

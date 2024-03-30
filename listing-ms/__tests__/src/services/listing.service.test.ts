@@ -168,7 +168,11 @@ describe("Listing service", () => {
       );
 
       // Assert
-    expect(result).toEqual(['image123'])
+      expect(mockedRepo.deleteListing).toBeCalledWith(
+        listingWImages,
+        listingToReturn._id.toString()
+      );
+      expect(result).toEqual(true)
     });
   });
 });

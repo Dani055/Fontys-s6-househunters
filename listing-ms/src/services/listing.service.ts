@@ -23,7 +23,7 @@ export const changeListing = async (userId: string, userRoles: string[], payload
     const editedListing = await editListing(listingId, payload);
     return editedListing;
 };
-export const removeListing = async (userId: string, userRoles: string[], listingId: string): Promise<string[]> => {
+export const removeListing = async (userId: string, userRoles: string[], listingId: string) => {
     const originalListing = await getListingbyId(listingId);
     // Not owner or admin
     if(originalListing.creatorId.toString() !== userId && !hasRequiredRoles(userRoles, ['Admin'])){
@@ -33,8 +33,8 @@ export const removeListing = async (userId: string, userRoles: string[], listing
     else if(originalListing.creatorId.toString() === userId && !hasRequiredRoles(userRoles, ['Admin']) && hasListingStarted(originalListing.startsOn)){
         throw new ResponseError(401, "Cannot delete listing. It has already started")
     }
-    await deleteListing(listingId)
-    return originalListing.images;
+    const result = await deleteListing(originalListing, listingId)
+    return result;
 };
 export const getListings = async (query: any) => {
     return await fetchListings(query)
