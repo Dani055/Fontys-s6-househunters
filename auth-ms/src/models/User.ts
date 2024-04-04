@@ -22,6 +22,7 @@ const userSchema = new Schema<IUser>({
   },
   username: {
     type: Schema.Types.String,
+    unique: true,
     required: true,
   },
   password: {
@@ -44,6 +45,7 @@ const userSchema = new Schema<IUser>({
     type: Schema.Types.String,
     required: true,
   },
+
   roles: [{ type: Schema.Types.String, required: true }]
 }, { versionKey: false, timestamps: true });
 const UserEntity = model<IUser>('User', userSchema);

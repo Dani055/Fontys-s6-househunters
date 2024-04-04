@@ -10,6 +10,7 @@ import authRoutes from './src/routes/auth'
 import userRoutes from './src/routes/user'
 import connectToDB from './src/database/database';
 import { seedAdminUser } from './src/models/User';
+import { connectToRabbitMQ } from './src/messaging/connect';
 
 
 const port = process.env.PORT;
@@ -48,6 +49,8 @@ export const start = async () => {
   await connectToDB();
   if(process.env.NODE_ENV !== 'test'){
     await seedAdminUser()
+    // Auth-ms is publisher only, no need to subscribe to exchanges
+    await connectToRabbitMQ();
     app.listen(port, () => { console.log(`REST API listening on port: ${port}`) });
   }
   app.emit("appStarted");

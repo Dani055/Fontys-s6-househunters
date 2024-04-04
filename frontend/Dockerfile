@@ -18,11 +18,10 @@ RUN npm install
 RUN npm run build
 
 # Get build and host it on nginx
-FROM nginx:stable-alpine
+FROM nginxinc/nginx-unprivileged:alpine
 
 # Renew PORT arg from previous stage
 ARG PORT
-RUN apk update && apk add --no-cache curl && apk add --no-cache bash
 
 # Copy build folder from Vite
 COPY --from=dependencies /frontend/dist /usr/share/nginx/html

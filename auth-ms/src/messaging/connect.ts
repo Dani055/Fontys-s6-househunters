@@ -17,25 +17,6 @@ async function connectToRabbitMQ() {
                 await channel.assertExchange('account_deleted', 'fanout', {
                     durable: false
                 });
-                await channel.assertExchange('listing_created', 'fanout', {
-                    durable: false
-                });
-                await channel.assertExchange('listing_edited', 'fanout', {
-                    durable: false
-                });
-                await channel.assertExchange('listing_deleted', 'fanout', {
-                    durable: false
-                });
-        
-                await channel.assertQueue("accountDeletedBidSub", { durable: false });
-                await channel.assertQueue("listingCreatedBidSub", { durable: false });
-                await channel.assertQueue("listingEditedBidSub", { durable: false });
-                await channel.assertQueue("listingDeletedBidSub", { durable: false });
-        
-                await channel.bindQueue('accountDeletedBidSub', 'account_deleted', '');
-                await channel.bindQueue('listingCreatedBidSub', 'listing_created', '');
-                await channel.bindQueue('listingEditedBidSub', 'listing_edited', '');
-                await channel.bindQueue('listingDeletedBidSub', 'listing_deleted', '');
         
                 console.log("Connected to RabbitMQ");
                 resolve();

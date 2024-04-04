@@ -34,6 +34,7 @@ services:
       - ./auth-ms/dotenv.test.example
     environment:
       DB_CON_STRING: mongodb://hh_database_e2e:27017/
+      RABBITMQ_HOST: hh_rabbitmq_e2e
 
   listing-ms:
     container_name: hh_listingms_e2e

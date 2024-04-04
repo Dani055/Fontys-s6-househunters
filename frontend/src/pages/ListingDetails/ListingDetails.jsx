@@ -38,7 +38,7 @@ function ListingDetails(props) {
       toast.error("Error loading listing");
       navigate('/')
     }
-    await getUsersForComments(listing);
+    getUsersForComments(listing);
   }
   async function getBids() {
     let resBids;
