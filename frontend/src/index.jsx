@@ -9,13 +9,24 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { UserProvider } from './UserProvider';
-
-
+import { ThemeProvider } from '@emotion/react';
+import {createTheme} from '@mui/material/styles'
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      'Poppins',
+      'Verdana',
+      'sans-serif',
+    ].join(','),
+  },
+});
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <UserProvider>
-    <App />
-  </UserProvider>
+  <ThemeProvider theme={theme}>
+    <UserProvider>
+      <App />
+    </UserProvider>
+  </ThemeProvider>
 );
 
 
