@@ -7,7 +7,8 @@ export const seedUsers = [ {
     lastName: 'Adminov',
     address: '123 avenue',
     phone: '+312345678',
-    roles: ['Admin', 'User']
+    roles: ['Admin', 'User'],
+    acceptedTermsAndConditions: true,
   },
   {
     _id: '111111111111111111111112',
@@ -18,7 +19,8 @@ export const seedUsers = [ {
     lastName: 'User',
     address: '123 avenue',
     phone: '+312345678',
-    roles: ['User']
+    roles: ['User'],
+    acceptedTermsAndConditions: true,
   },
   {
     _id: '111111111111111111111113',
@@ -29,5 +31,6 @@ export const seedUsers = [ {
     lastName: 'User',
     address: '123 avenue',
     phone: '+312345678',
-    roles: ['User']
+    roles: ['User'],
+    acceptedTermsAndConditions: true,
   }]

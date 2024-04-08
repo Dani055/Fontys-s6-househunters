@@ -12,6 +12,7 @@ export interface IUser extends IBase {
   address: string;
   phone: string;
   roles: string[];
+  acceptedTermsAndConditions: boolean;
 }
 
 const userSchema = new Schema<IUser>({
@@ -46,7 +47,12 @@ const userSchema = new Schema<IUser>({
     required: true,
   },
 
-  roles: [{ type: Schema.Types.String, required: true }]
+  roles: [{ type: Schema.Types.String, required: true }],
+
+  acceptedTermsAndConditions:{
+    type: Schema.Types.Boolean,
+    required: true,
+  }
 }, { versionKey: false, timestamps: true });
 const UserEntity = model<IUser>('User', userSchema);
 

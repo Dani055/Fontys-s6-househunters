@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 function RegisterForm(props) {
   const navigate = useNavigate();
-  const [formState, setFormState] = useState({ firstName: "", lastName: "", address: "", phone: "", email: "", username: "", password: "" });
+  const [formState, setFormState] = useState({ firstName: "", lastName: "", address: "", phone: "", email: "", username: "", password: "", acceptedTermsAndConditions: false });
 
 
   const handleSubmit = async (e) => {
@@ -112,8 +112,8 @@ function RegisterForm(props) {
               placeholder="name@example.com"
             />
             <label htmlFor="floatingInput"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person me-1" viewBox="0 0 16 16">
-          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
-        </svg>Username* (Min. 2)</label>
+              <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
+            </svg>Username* (Min. 2)</label>
           </div>
         </div>
       </div>
@@ -142,11 +142,19 @@ function RegisterForm(props) {
           <p className="text-danger">* Fields are required</p>
         </div>
       </div>
+      <div className="row justify-content-center">
+        <div className="col-md-5 form-check mt-4">
+          <input className="form-check-input" type="checkbox" value='' onChange={(e) => { setFormState({ ...formState, acceptedTermsAndConditions: e.target.checked }); }} />
+          <label className="form-check-label">I accept the <Link to='/privacy' target='_blank'>terms and conditions</Link>.</label>
+        </div>
+      </div>
+      <div className="row mt-3 justify-content-center">
+        <div className="col-md-4">
+          <button disabled={!formState.acceptedTermsAndConditions} className="btn btn-outline-dark px-5 w-100" type="submit">
+            Register
+          </button>
+        </div>
 
-      <div className="row">
-        <button className="btn btn-outline-dark px-5" type="submit">
-          Register
-        </button>
       </div>
 
       <div className="row justify-content-center mt-4">

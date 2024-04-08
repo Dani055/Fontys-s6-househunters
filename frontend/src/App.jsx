@@ -18,6 +18,7 @@ import { UserContext } from './UserProvider';
 import Protected from './components/Protected/Protected';
 import NotFound from './pages/NotFound/NotFound';
 import ListingResults from './pages/ListingResults/ListingResults';
+import PrivacyPolicyPage from 'pages/Privacy/Privacy';
 
 function App() {
   const { loggedUser, setLoggedUser } = useContext(UserContext);
@@ -72,7 +73,7 @@ function App() {
             </Protected>
           } />
           <Route path="/listing/details/:listingId" element={<ListingDetails />} />
-
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

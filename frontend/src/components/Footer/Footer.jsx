@@ -31,8 +31,8 @@ function Footer(props) {
                   </Link>
                 </li>
                 <li className="nav-item mb-2">
-                  <Link to="#" className="nav-link p-0 text-muted">
-                    Finalizing the sale
+                  <Link to="/privacy" className="nav-link p-0 text-muted">
+                    Privacy policy
                   </Link>
                 </li>
                 <li className="nav-item mb-2">

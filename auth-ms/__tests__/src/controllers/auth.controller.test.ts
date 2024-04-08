@@ -85,7 +85,8 @@ describe('Auth controller', () => {
             const userToReturn: IUser = {
                 ...payload,
                 _id: new Types.ObjectId('111111111111111111111112'),
-                roles: ['User']
+                roles: ['User'],
+                acceptedTermsAndConditions: true,
             }
             const expectedDto = {
                 ...userToReturn,
@@ -121,6 +122,7 @@ describe('Auth controller', () => {
             const userToReturn: IUser = {
                 ...expectedDto,
                 _id: new Types.ObjectId(userId),
+                acceptedTermsAndConditions: true,
                 password: 'pass'
             }
             mockJwt(mockedJwt, userForJwt)
