@@ -91,7 +91,8 @@ describe('Auth controller', () => {
             const expectedDto = {
                 ...userToReturn,
                 _id: '111111111111111111111112',
-                password: undefined
+                password: undefined,
+                acceptedTermsAndConditions: undefined
             }
 
             mockedService.registerUser.mockResolvedValue(userToReturn);
