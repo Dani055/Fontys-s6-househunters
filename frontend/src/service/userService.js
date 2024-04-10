@@ -31,6 +31,13 @@ const getUserProfile = (username) => {
             throwError(err)
         })
 }
+const deleteUserAccount = (id) => {
+    return axiosConfig.delete(`/api/user/${id}`)
+        .then((response) => response.data)
+        .catch((err) => {
+            throwError(err)
+        })
+}
 const getUsersBulk = (userIds) => {
     return axiosConfig.post(`/api/user/getBulk`, {ids: userIds})
         .then((response) => response.data)
@@ -76,5 +83,6 @@ export {
     loginUserCall,
     checkLoginKey,
     getUserProfile,
-    getUsersBulk
+    getUsersBulk,
+    deleteUserAccount
 }

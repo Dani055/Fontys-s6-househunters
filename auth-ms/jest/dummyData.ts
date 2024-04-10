@@ -13,7 +13,8 @@ export const userForReturning: IUser = {
     lastName: 'lname',
     address: '123 avenue',
     phone: '+31',
-    roles: ['User']
+    roles: ['User'],
+    acceptedTermsAndConditions: true,
 }
 export const userForAuthTests = {
     _id: new Types.ObjectId("111111111111111111111111"),
@@ -25,4 +26,5 @@ export const userForAuthTests = {
     address: '123 avenue',
     phone: '+312345678',
     roles: ['User'],
+    acceptedTermsAndConditions: true,
 }

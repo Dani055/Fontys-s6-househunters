@@ -40,11 +40,11 @@ const userSchema = new Schema<IUser>({
   },
   address: {
     type: Schema.Types.String,
-    required: true,
+    default: null,
   },
   phone: {
     type: Schema.Types.String,
-    required: true,
+    default: null
   },
 
   roles: [{ type: Schema.Types.String, required: true }],

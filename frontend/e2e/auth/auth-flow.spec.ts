@@ -23,11 +23,10 @@ test('Invalid email', async () => {
 });
 test('Missing fields', async () => {
   // Email field must be unique
-
   await provideEmail(page, email);
-
+  await page.getByTestId('terms-checkbox').check();
   await page.locator('button[type="submit"]').click();
-  await expectToast(page, "User validation failed: username: Path `username` is required., firstName: Path `firstName` is required., lastName: Path `lastName` is required., address: Path `address` is required., phone: Path `phone` is required.");
+  await expectToast(page, "User validation failed: username: Path `username` is required., firstName: Path `firstName` is required., lastName: Path `lastName` is required.");
 });
 test('Register user', async () => {
     // Email field must be unique
