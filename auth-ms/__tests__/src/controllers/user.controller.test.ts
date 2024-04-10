@@ -38,7 +38,8 @@ describe('User controller', () => {
             const expectedDto = {
                 ...userForReturning,
                 _id: userForReturning._id.toString(),
-                password: undefined
+                password: undefined,
+                acceptedTermsAndConditions: undefined,
             }
             mockedService.getUserByUsername.mockResolvedValue(userForReturning);
 
@@ -59,7 +60,8 @@ describe('User controller', () => {
                 "111111111111111111111112": {
                     ...userForReturning,
                     _id: userForReturning._id.toString(),
-                    password: undefined
+                    password: undefined,
+                    acceptedTermsAndConditions: undefined,
                 }
             }
             mockedRepo.getUsersByIdBulk.mockResolvedValue(usersToReturn);
