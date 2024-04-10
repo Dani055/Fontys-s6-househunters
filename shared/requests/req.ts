@@ -6,6 +6,7 @@ export interface registerUserPayload{
     lastName: string;
     address: string;
     phone: string;
+    acceptedTermsAndConditions: boolean;
 }
 export interface createListingPayload {
     propertyType: string
