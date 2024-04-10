@@ -80,6 +80,7 @@ describe('Auth repository', () => {
                 lastName: 'lname',
                 address: '123 avenue',
                 phone: '+31',
+                acceptedTermsAndConditions: true,
             }
             const expectedUser = {
                 ...payload,

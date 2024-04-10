@@ -70,6 +70,7 @@ describe('Auth service', () => {
                 lastName: 'lname',
                 address: '123 avenue',
                 phone: '+31',
+                acceptedTermsAndConditions: true,
             }
             mockedRepository.createUser.mockResolvedValue(userForReturning);
 

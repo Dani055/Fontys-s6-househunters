@@ -25,7 +25,6 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
-console.log("pkey " + process.env.PRIVATE_KEY.replace(/\\n/g, '\n'));
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 

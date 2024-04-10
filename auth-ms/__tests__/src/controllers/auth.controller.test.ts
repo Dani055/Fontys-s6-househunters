@@ -81,12 +81,12 @@ describe('Auth controller', () => {
                 lastName: 'lname',
                 address: '123 avenue',
                 phone: '+31',
+                acceptedTermsAndConditions: true,
             }
             const userToReturn: IUser = {
                 ...payload,
                 _id: new Types.ObjectId('111111111111111111111112'),
                 roles: ['User'],
-                acceptedTermsAndConditions: true,
             }
             const expectedDto = {
                 ...userToReturn,
