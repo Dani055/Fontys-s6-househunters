@@ -1,7 +1,6 @@
 
-import express, { Express, ErrorRequestHandler } from 'express';
+import express, { Express, ErrorRequestHandler, Router } from 'express';
 import dotenv from 'dotenv';
-
 dotenv.config({path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'})
 
 import bodyParser from 'body-parser';
@@ -11,7 +10,7 @@ import userRoutes from './src/routes/user'
 import connectToDB from './src/database/database';
 import { seedAdminUser } from './src/models/User';
 import { connectToRabbitMQ } from './src/messaging/connect';
-
+const router = Router()
 
 const port = process.env.PORT;
 const app: Express = express();
@@ -27,6 +26,10 @@ app.use((req, res, next) => {
 });
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/ping', router.get('/', (req, res, next) => {
+  return res.status(200).json("Server running");
+}));
+
 
 // General error handling
 const errorHandler: ErrorRequestHandler = (error, req, res, next) => {

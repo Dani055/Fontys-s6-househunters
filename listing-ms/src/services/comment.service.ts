@@ -6,10 +6,10 @@ import { ResponseError } from 'shared/responses/responseError';
 import { hasRequiredRoles } from 'shared/functions/hasRequiredRoles';
 
 export const postComment = async (userId: string, listingId: string, commentInfo: createCommentPayload) => {
-    const listing = await getListingbyId(listingId);
-    if(hasListingEnded(listing.endsOn)){
-        throw new ResponseError(401, "Cannot post comment, listing has ended")
-    }
+    // const listing = await getListingbyId(listingId);
+    // if(hasListingEnded(listing.endsOn)){
+    //     throw new ResponseError(401, "Cannot post comment, listing has ended")
+    // }
     return await createComment(userId, listingId, commentInfo)
 };
 export const removeComment = async (userId: string, userRoles: string[], commentId: string) => {

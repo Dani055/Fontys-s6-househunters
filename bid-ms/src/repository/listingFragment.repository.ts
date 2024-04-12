@@ -22,7 +22,9 @@ export const editListingFragment = async (listingFragment: IListingFragment) => 
     return listing as IListingFragment
 };
 export const deleteListingFragment = async (listingId: string) => {
-    await ListingFragmentEntity.deleteOne({_id: listingId});
-    await BidEntity.deleteMany({listingId: listingId});
+    await Promise.all([
+        ListingFragmentEntity.deleteOne({_id: listingId}),
+        BidEntity.deleteMany({listingId: listingId})
+    ])
     return true;
 };

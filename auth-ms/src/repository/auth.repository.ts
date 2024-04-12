@@ -26,10 +26,9 @@ export const findUserById = async (id: string) => {
     return user as IUser
 };
 export const deleteUserById = async (id: string) => {
-    channel?.publish('account_deleted', '', Buffer.from(JSON.stringify(id)));
     const res = await UserEntity.deleteOne({_id: id});
     if(res.deletedCount > 0){
-
+        channel?.publish('account_deleted', '', Buffer.from(JSON.stringify(id)));
         return true
     }
     throw new ResponseError(404, "User with specified id was not found")

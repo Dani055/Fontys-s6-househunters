@@ -10,8 +10,10 @@ export const createListing = async (userId: string, payload: createListingPayloa
     return listing as IListing
 };
 export const editListing = async (listingId: string, payload: createListingPayload) => {
-    const oldListing = await ListingEntity.findById(listingId).orFail();
-    const listing = await ListingEntity.findByIdAndUpdate(listingId, {...payload, creatorId: undefined, hasSold: false, images: payload.newImages ? [] : undefined, comments: undefined}, {new: true});
+    const [oldListing, listing] = await Promise.all([
+        ListingEntity.findById(listingId).orFail(),
+        ListingEntity.findByIdAndUpdate(listingId, {...payload, creatorId: undefined, hasSold: false, images: payload.newImages ? [] : undefined, comments: undefined}, {new: true})
+    ])
     const imagesToDelete = payload.newImages ? oldListing.images : [];
     return {imagesToDelete, listing: listing as IListing}
 };
@@ -21,8 +23,10 @@ export const assignListingPhotos = async (listingId: string, links: string[]) =>
 };
 export const deleteListing = async (originalListing: IListing, listingId: string) => {
     const imagesToDelete = originalListing.images;
-    await ListingEntity.deleteOne({_id: listingId});
-    await CommentEntity.deleteMany({listingId: listingId});
+    await Promise.all([
+        ListingEntity.deleteOne({_id: listingId}),
+        CommentEntity.deleteMany({listingId: listingId})
+    ])
     channel?.publish('listing_deleted', '', Buffer.from(JSON.stringify({listingId, imagesToDelete})));
     return true;
 };
@@ -48,8 +52,10 @@ export const fetchListings = async (reqQuery: any) => {
     if(creatorId){
         query.creatorId = creatorId;
     }
-    const listings = await ListingEntity.find(query).sort({startsOn: -1}).skip(page * pageSize).limit(pageSize).exec() as IListing[];
-    const totalCount: number = await ListingEntity.countDocuments(query);
+    const [listings, totalCount] = await Promise.all([
+        ListingEntity.find(query).sort({startsOn: -1}).skip(page * pageSize).limit(pageSize).exec() as Promise<IListing[]>,
+        ListingEntity.countDocuments(query),
+    ])
     const totalPages = Math.ceil(totalCount / pageSize);
 
     return {
