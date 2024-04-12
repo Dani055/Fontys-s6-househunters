@@ -40,6 +40,6 @@ export const getListings = async (query: any) => {
     return await fetchListings(query)
 };
 export const getListingDetails = async (listingId: string): Promise<IListing> => {
-    const listing = await getListingbyId(listingId);
+    const listing = await getListingbyId(listingId, true);
     return listing;
 };

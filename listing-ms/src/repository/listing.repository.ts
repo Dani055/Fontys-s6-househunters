@@ -30,13 +30,20 @@ export const deleteListing = async (originalListing: IListing, listingId: string
     channel?.publish('listing_deleted', '', Buffer.from(JSON.stringify({listingId, imagesToDelete})));
     return true;
 };
-export const getListingbyId = async (listingId: string) => {
-    const listing = await ListingEntity.findById(listingId).populate<{comments: IComment[]}>({path: 'comments', options: { sort: {'createdAt': -1}}});
+export const getListingbyId = async (listingId: string, populate?: boolean) => {
+    let listing;
+    if(populate){
+        listing = await ListingEntity.findById(listingId).populate<{comments: IComment[]}>({path: 'comments', options: { sort: {'createdAt': -1}}});
+    }
+    else{
+        listing = await ListingEntity.findById(listingId)
+    }
     if(!listing){
         throw new ResponseError(404, 'Listing with specified id not found')
     }
     return listing as IListing;
 };
+
 export const fetchListings = async (reqQuery: any) => {
     const { page = 0, hasEnded, creatorId } = reqQuery;
     let query: any = {};
