@@ -196,7 +196,7 @@ describe("Bid service", () => {
         runningListing._id.toString()
       );
       expect(mockedBidRepo.getBidsByListingId).toBeCalledWith(
-        runningListing._id.toString()
+        runningListing._id.toString(), 1
       );
       expect(mockedBidRepo.createBid).toBeCalledWith(
         userId, runningListing._id.toString(), payload

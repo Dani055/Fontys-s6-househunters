@@ -4,6 +4,7 @@ import { IListing } from '../models/Listing';
 import { hasRequiredRoles } from 'shared/functions/hasRequiredRoles'
 import { hasListingStarted, validateListingDates } from 'shared/functions/listingValidator'
 import { ResponseError } from 'shared/responses/responseError';
+import { getCommentsByListingId } from '../repository/comment.repository';
 
 export const postListing = async (userId: string, payload: createListingPayload): Promise<IListing> => {
     const listing = await createListing(userId, payload);
@@ -20,7 +21,7 @@ export const changeListing = async (userId: string, userRoles: string[], payload
         throw new ResponseError(401, "Cannot change listing info. It has already started")
     }
     validateListingDates(payload.startsOn, payload.endsOn);
-    const editedListing = await editListing(listingId, payload);
+    const editedListing = await editListing(originalListing, payload);
     return editedListing;
 };
 export const removeListing = async (userId: string, userRoles: string[], listingId: string) => {
@@ -40,6 +41,10 @@ export const getListings = async (query: any) => {
     return await fetchListings(query)
 };
 export const getListingDetails = async (listingId: string): Promise<IListing> => {
-    const listing = await getListingbyId(listingId, true);
+    const [listing, comments] = await Promise.all([
+        getListingbyId(listingId),
+        getCommentsByListingId(listingId)
+    ])
+    listing.comments = comments;
     return listing;
 };

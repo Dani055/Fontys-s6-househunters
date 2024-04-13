@@ -20,7 +20,7 @@ beforeAll((done) => {
 afterAll(async () => {
   await mongoose.disconnect();
 });
-let createdListingId: string;
+let createdListing: IListing;
 const startsOn = dayjs().toDate();
 const endsOn = dayjs().toDate();
 const userId = "111111111111111111111111";
@@ -48,16 +48,15 @@ describe("Listing repository", () => {
         ...base,
         creatorId: new Types.ObjectId(userId),
         hasSold: false,
-        comments: [],
         images: [],
       };
 
       // Act
-      const createdListing = await createListing(userId, payload);
-      createdListingId = createdListing._id.toString();
+      const result = await createListing(userId, payload);
+      createdListing = result;
 
       // Assert
-      expect(createdListing).toMatchObject(expectedListing);
+      expect(result).toMatchObject(expectedListing);
     });
   });
   describe("editListing", () => {
@@ -82,13 +81,12 @@ describe("Listing repository", () => {
         ...base,
         creatorId: new Types.ObjectId(userId),
         hasSold: false,
-        comments: [],
         images: [],
-        _id: new Types.ObjectId(createdListingId),
+        _id: createdListing._id,
       };
 
       // Act
-      const editedListing = await editListing(createdListingId, payload);
+      const editedListing = await editListing(createdListing, payload);
 
       // Assert
       expect(editedListing.imagesToDelete).toMatchObject([]);
@@ -99,7 +97,7 @@ describe("Listing repository", () => {
     it("Changes listing images successfully", async () => {
       // Arrange
       // Act
-      const editedListing = await assignListingPhotos(createdListingId, [
+      const editedListing = await assignListingPhotos(createdListing._id.toString(), [
         "img123",
       ]);
 
@@ -111,10 +109,9 @@ describe("Listing repository", () => {
     it("Gets listing successfully", async () => {
       // Arrange
       const expectedListing: IListing = {
-        _id: new Types.ObjectId(createdListingId),
+        _id: createdListing._id,
         creatorId: new Types.ObjectId(userId),
         hasSold: false,
-        comments: [],
         images: ["img123"],
         propertyType: "Edited listing",
         buildYear: 2005,
@@ -128,7 +125,7 @@ describe("Listing repository", () => {
       };
 
       // Act
-      const listing = await getListingbyId(createdListingId);
+      const listing = await getListingbyId(createdListing._id.toString());
 
       // Assert
       expect(listing).toMatchObject(expectedListing);
@@ -157,7 +154,7 @@ describe("Listing repository", () => {
           images: ['image123']
         };
       // Act
-      const result = await deleteListing(listingWImages, createdListingId);
+      const result = await deleteListing(listingWImages, createdListing._id.toString());
 
       // Assert
       expect(result).toEqual(true);

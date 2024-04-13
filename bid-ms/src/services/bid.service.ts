@@ -5,7 +5,7 @@ import { getListingFragmentById } from '../repository/listingFragment.repository
 import { hasListingStarted, hasListingEnded} from 'shared/functions/listingValidator';
 
 export const postBid = async (userId: string, listingId: string, bidInfo: createBidPayload) => {
-    const bids = await getBidsByListingId(listingId);
+    const bids = await getBidsByListingId(listingId, 1);
     const listing = await getListingFragmentById(listingId);
     if(!hasListingStarted(listing.startsOn)){
         throw new ResponseError(400, "Listing has not started yet")

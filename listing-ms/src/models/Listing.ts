@@ -14,7 +14,7 @@ export interface IListing extends IBase{
   startsOn: Date
   endsOn: Date
   images: string[]
-  comments: IComment[];
+  comments?: IComment[];
 }
 
 const listingSchema = new Schema<IListing>({
@@ -63,10 +63,6 @@ const listingSchema = new Schema<IListing>({
   },
   images: [{
     type: Schema.Types.String
-  }],
-  comments: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Comment',
   }]
 }, { versionKey: false, timestamps: true });
 const ListingEntity = model<IListing>('Listing', listingSchema);

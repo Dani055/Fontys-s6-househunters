@@ -45,7 +45,7 @@ describe("Bid repository", () => {
       }];
 
       // Act
-      const bids = await getBidsByListingId(listingId.toString());
+      const bids = await getBidsByListingId(listingId.toString(), 10);
       console.log(bids);
       // Assert
       expect(bids).toMatchObject(expectedBids);

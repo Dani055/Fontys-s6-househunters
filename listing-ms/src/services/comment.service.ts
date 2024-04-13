@@ -1,5 +1,5 @@
 import { createCommentPayload } from 'shared/requests/req';
-import { createComment, deleteComment, getCommentById } from '../repository/comment.repository';
+import { createComment, deleteComment, getCommentById, getCommentsByListingId } from '../repository/comment.repository';
 import { getListingbyId } from '../repository/listing.repository';
 import { hasListingEnded } from 'shared/functions/listingValidator';
 import { ResponseError } from 'shared/responses/responseError';

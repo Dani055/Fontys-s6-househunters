@@ -1,4 +1,4 @@
-import { Mongoose, Types } from 'mongoose';
+import { Types } from 'mongoose';
 import { createListingPayload } from 'shared/requests/req';
 import dayjs from 'dayjs'
 import { IListing } from 'listing-ms/src/models/Listing';
@@ -48,7 +48,6 @@ export const listingToReturn: IListing = {
     location: "Eindhoven",
     hasSold: false,
     images: [],
-    comments: [],
     startsOn: startsOn.toDate(),
     endsOn: endsOn.toDate(),
 }

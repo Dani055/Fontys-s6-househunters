@@ -5,7 +5,7 @@ export const createBid = async (userId: string, listingId: string, payload: crea
     const bid = await BidEntity.create({...payload, creatorId: userId, listingId: listingId, createdOn: undefined});
     return bid as IBid
 };
-export const getBidsByListingId = async (listingId: string) => {
-    const bids = await BidEntity.find({listingId: listingId}).sort({amount: -1})
+export const getBidsByListingId = async (listingId: string, limit: number) => {
+    const bids = await BidEntity.find({listingId: listingId}).sort({amount: -1}).limit(limit)
     return bids as IBid[];
 };

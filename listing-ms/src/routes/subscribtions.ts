@@ -18,13 +18,14 @@ async function onMediaUploaded(channel: amqp.Channel, msg: amqp.Message) {
 async function onAccountDeleted(channel: amqp.Channel, msg: amqp.Message) {
   const userId: string = JSON.parse(msg.content.toString());
   const userListings = await ListingEntity.find({creatorId: userId})
-  for(const listing of userListings){
-    await deleteListing(listing, listing._id.toString())
-  }
+  await Promise.all(userListings.map((listing) => {
+    deleteListing(listing, listing._id.toString());
+  }))
   const userComments = await CommentEntity.find({creatorId: userId});
-  for(const comment of userComments){
-    await deleteComment(comment._id.toString())
-  }
+  await Promise.all(userComments.map((comment) => {
+    deleteComment(comment._id.toString())
+  }));
+
   (channel as amqp.Channel).ack(msg);
 }
 export async function subToExchanges(channel: amqp.Channel) {

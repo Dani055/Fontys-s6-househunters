@@ -26,7 +26,7 @@ export const handleCreateBid: RequestHandler = async (req, res, next) => {
 export const handleGetBidsForListing: RequestHandler = async (req, res, next) => {
   try {
     const listingId = req.query.listingId as string;
-    const bids = await getBidsByListingId(listingId);
+    const bids = await getBidsByListingId(listingId, 30);
 
     const bidDtos = bids.map((bid) => {
       return mapBidToDTO(bid);

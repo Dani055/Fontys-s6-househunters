@@ -123,7 +123,7 @@ describe("Bid controller", () => {
               .get(`/api/bid?listingId=${listingId}`)
 
             // Assert
-            expect(mockedRepo.getBidsByListingId).toBeCalledWith(listingId);
+            expect(mockedRepo.getBidsByListingId).toBeCalledWith(listingId, 30);
 
             expect(res.statusCode).toEqual(200);
             expect(res.body).toEqual({
