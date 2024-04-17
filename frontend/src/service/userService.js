@@ -54,7 +54,17 @@ function throwError (err){
         throw err;
     }
 }
+export function profileUrl(creator){
+    return creator?.username ? `/profile/${creator.username}` : '/'
+}
+export function displayUsername(entity){
+    console.log(entity)
+    return !entity.creatorId && !entity.creator ? "user_deleted" : entity.creator?.username
+}
 export const mapEntityWithCreator = async (entityNoUser) => {
+    if(entityNoUser.length <= 0){
+        return entityNoUser;
+    }
     const entityIdToUserId = Object.fromEntries(
         entityNoUser.map(ent => {
         return [ent._id, ent.creatorId]
@@ -63,6 +73,7 @@ export const mapEntityWithCreator = async (entityNoUser) => {
     const userIdsToGet = Object.values(entityIdToUserId);
 
     let userIdToUser = {};
+
     const usersRes = await getUsersBulk(userIdsToGet);
     userIdToUser = usersRes.userIdToUser;
 
