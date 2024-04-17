@@ -60,7 +60,7 @@ describe("Listing controller", () => {
         endsOn: listingPayload.endsOn,
         newImages: undefined,
         _id: listingToReturn._id.toString(),
-        creatorId: listingToReturn.creatorId.toString(),
+        creatorId: listingToReturn.creatorId?.toString(),
       };
       mockedService.postListing.mockResolvedValue(listingToReturn);
       mockJwt(mockedJwt, userForJwt);
@@ -102,7 +102,7 @@ describe("Listing controller", () => {
         endsOn: listingPayload.endsOn,
         newImages: undefined,
         _id: listingToReturn._id.toString(),
-        creatorId: listingToReturn.creatorId.toString(),
+        creatorId: listingToReturn.creatorId?.toString(),
       };
       mockedService.changeListing.mockResolvedValue({
         imagesToDelete: [],
@@ -175,7 +175,7 @@ describe("Listing controller", () => {
           endsOn: listingPayload.endsOn,
           newImages: undefined,
           _id: listingsToReturn[0]._id.toString(),
-          creatorId: listingsToReturn[0].creatorId.toString(),
+          creatorId: listingsToReturn[0].creatorId?.toString(),
         },
       ];
       mockedService.getListings.mockResolvedValue({

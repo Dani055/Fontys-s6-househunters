@@ -38,7 +38,7 @@ export const getListingbyId = async (listingId: string) => {
 export const fetchListings = async (reqQuery: any) => {
     const { page = 0, hasEnded, creatorId } = reqQuery;
     let query: any = {};
-    let pageSize = 1
+    let pageSize = 4
 
     const currentDate = dayjs();
     if (hasEnded === 'true') {

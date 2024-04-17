@@ -2,5 +2,5 @@ export interface BaseDTO{
     _id: string,
 }
 export interface WithCreator{
-    creatorId: string;
+    creatorId: string | null;
 }

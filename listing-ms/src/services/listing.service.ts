@@ -13,11 +13,11 @@ export const postListing = async (userId: string, payload: createListingPayload)
 export const changeListing = async (userId: string, userRoles: string[], payload: createListingPayload, listingId: string) => {
     const originalListing = await getListingbyId(listingId);
     // Not owner or admin
-    if(originalListing.creatorId.toString() !== userId && !hasRequiredRoles(userRoles, ['Admin'])){
+    if(originalListing.creatorId?.toString() !== userId && !hasRequiredRoles(userRoles, ['Admin'])){
         throw new ResponseError(401, "You are not authorized to change this listing")
     }
     // 
-    else if(originalListing.creatorId.toString() === userId && !hasRequiredRoles(userRoles, ['Admin']) && hasListingStarted(originalListing.startsOn)){
+    else if(originalListing.creatorId?.toString() === userId && !hasRequiredRoles(userRoles, ['Admin']) && hasListingStarted(originalListing.startsOn)){
         throw new ResponseError(401, "Cannot change listing info. It has already started")
     }
     validateListingDates(payload.startsOn, payload.endsOn);
@@ -27,11 +27,11 @@ export const changeListing = async (userId: string, userRoles: string[], payload
 export const removeListing = async (userId: string, userRoles: string[], listingId: string) => {
     const originalListing = await getListingbyId(listingId);
     // Not owner or admin
-    if(originalListing.creatorId.toString() !== userId && !hasRequiredRoles(userRoles, ['Admin'])){
+    if(originalListing.creatorId?.toString() !== userId && !hasRequiredRoles(userRoles, ['Admin'])){
         throw new ResponseError(401, "You are not authorized to delete this listing")
     }
     // 
-    else if(originalListing.creatorId.toString() === userId && !hasRequiredRoles(userRoles, ['Admin']) && hasListingStarted(originalListing.startsOn)){
+    else if(originalListing.creatorId?.toString() === userId && !hasRequiredRoles(userRoles, ['Admin']) && hasListingStarted(originalListing.startsOn)){
         throw new ResponseError(401, "Cannot delete listing. It has already started")
     }
     const result = await deleteListing(originalListing, listingId)

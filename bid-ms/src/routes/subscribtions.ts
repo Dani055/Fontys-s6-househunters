@@ -1,5 +1,5 @@
 import * as amqp from "amqplib";
-import { IListingFragment } from "../models/ListingFragment";
+import ListingFragmentEntity, { IListingFragment } from "../models/ListingFragment";
 import {
   deleteListingFragment,
   editListingFragment,
@@ -25,7 +25,11 @@ async function handleListingCreated(channel: amqp.Channel, msg: amqp.Message) {
 }
 async function handleAccountDeleted(channel: amqp.Channel, msg: amqp.Message) {
   const userId: string = JSON.parse(msg.content.toString());
-  const results = await BidEntity.deleteMany({creatorId: userId});
+  await Promise.all([
+    BidEntity.updateMany({creatorId: userId}, {creatorId: null}),
+    ListingFragmentEntity.updateMany({creatorId: userId}, {creatorId: null}),
+  ]);
+
   (channel as amqp.Channel).ack(msg);
 }
 async function handleListingEdited(channel: amqp.Channel, msg: amqp.Message) {

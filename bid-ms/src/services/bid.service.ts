@@ -13,7 +13,7 @@ export const postBid = async (userId: string, listingId: string, bidInfo: create
     else if(hasListingEnded(listing.endsOn)){
         throw new ResponseError(400, "Listing has ended")
     }
-    else if(userId === listing.creatorId.toString()){
+    else if(userId === listing.creatorId?.toString()){
         throw new ResponseError(400, "You cannot bid on your own listing")
     }
     else if(bidInfo.amount < listing.startingPrice){

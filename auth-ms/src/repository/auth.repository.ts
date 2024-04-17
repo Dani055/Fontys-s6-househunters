@@ -26,11 +26,12 @@ export const findUserById = async (id: string) => {
     return user as IUser
 };
 export const deleteUserById = async (id: string) => {
-    const res = await UserEntity.deleteOne({_id: id});
-    if(res.deletedCount > 0){
-        channel?.publish('account_deleted', '', Buffer.from(JSON.stringify(id)));
-        return true
-    }
+    // const res = await UserEntity.deleteOne({_id: id});
+    channel?.publish('account_deleted', '', Buffer.from(JSON.stringify(id)));
+    // if(res.deletedCount > 0){
+
+    //     return true
+    // }
     throw new ResponseError(404, "User with specified id was not found")
 };
 export const getUsersByIdBulk = async (ids: string[]) => {

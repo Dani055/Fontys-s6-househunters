@@ -9,7 +9,6 @@ export const getCommentsByListingId = async (listingId: string) => {
     return CommentEntity.find({listingId: listingId}) as Promise<IComment[]>
 }
 export const deleteComment = async (commentId: string) => {
-    const comment = await getCommentById(commentId);
     await CommentEntity.deleteOne({ _id: commentId });
     return true;
 };
