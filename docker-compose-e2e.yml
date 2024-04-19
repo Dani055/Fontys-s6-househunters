@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    container_name: hh_rabbitmq_e2e
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"  # Default AMQP port
+      - "15672:15672"  # RabbitMQ management UI port
+    environment:
+      RABBITMQ_DEFAULT_USER: hhuser
+      RABBITMQ_DEFAULT_PASS: hhpassword
+  
+  mongodb:
+    container_name: hh_database_e2e
+    image: mongodb/mongodb-community-server:latest
+    ports:
+      - "27017:27017"  # Map host machine's port 27017 to container's port 27017
+    volumes:
+      - hh_e2e_data:/data/db
+      - hh_e2e_db_config:/data/configdb
+
+  auth-ms:
+    container_name: hh_authms_e2e
+    build:
+      context: .
+      dockerfile: ./auth-ms/Dockerfile
+    depends_on:
+      - mongodb
+      - rabbitmq
+    ports:
+      - '9998:9998'
+    env_file:
+      - ./auth-ms/dotenv.test.example
+    environment:
+      DB_CON_STRING: mongodb://hh_database_e2e:27017/
+      RABBITMQ_HOST: hh_rabbitmq_e2e
+
+  listing-ms:
+    container_name: hh_listingms_e2e
+    build:
+      context: .
+      dockerfile: ./listing-ms/Dockerfile
+    depends_on:
+      - mongodb
+      - rabbitmq
+    ports:
+      - '9997:9997'
+    env_file:
+      - ./listing-ms/dotenv.test.example
+    environment:
+      DB_CON_STRING: mongodb://hh_database_e2e:27017/
+      SEED_DATA_E2E: true
+      RABBITMQ_HOST: hh_rabbitmq_e2e
+  
+  bid-ms:
+    container_name: hh_bidms_e2e
+    build:
+      context: .
+      dockerfile: ./bid-ms/Dockerfile
+    depends_on:
+      - mongodb
+      - rabbitmq
+    ports:
+      - '9996:9996'
+    env_file:
+      - ./bid-ms/dotenv.test.example
+    environment:
+      DB_CON_STRING: mongodb://hh_database_e2e:27017/
+      SEED_DATA_E2E: true
+      RABBITMQ_HOST: hh_rabbitmq_e2e
+
+  media-ms:
+    container_name: hh_mediams_e2e
+    build:
+      context: .
+      dockerfile: ./media-ms/Dockerfile
+    depends_on:
+      - rabbitmq
+    ports:
+      - '9999:9999'
+    env_file:
+      - ./media-ms/dotenv.local.example
+    environment:
+      RABBITMQ_HOST: hh_rabbitmq_e2e
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      S3_BUCKET: ${S3_BUCKET}
+      S3_REGION: ${S3_REGION}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+
+volumes:
+  hh_e2e_data:
+  hh_e2e_db_config:

@@ -25,7 +25,7 @@ export const handleRegister: RequestHandler = async (req, res, next) => {
     const dto = mapUserToUserDTO(user);
   
     const response: UserDtoResponse = {
-      message: 'User successfully logged in!',
+      message: 'User successfully registered',
       user: dto
     }
     res.status(200).json(response);

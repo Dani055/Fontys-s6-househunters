@@ -1,31 +1,35 @@
 
-import express, { Express, ErrorRequestHandler } from 'express';
+import express, { Express, ErrorRequestHandler, Router } from 'express';
 import dotenv from 'dotenv';
-
 dotenv.config({path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'})
 
 import bodyParser from 'body-parser';
-import cors from 'cors';
 
 import authRoutes from './src/routes/auth'
 import userRoutes from './src/routes/user'
 import connectToDB from './src/database/database';
 import { seedAdminUser } from './src/models/User';
+import { connectToRabbitMQ } from './src/messaging/connect';
+const router = Router()
 
 const port = process.env.PORT;
 const app: Express = express();
 
-app.use(cors());
+app.disable('x-powered-by');
+app.disable('Access-Control-Allow-Origin');
 app.use(bodyParser.json());
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Origin', 'none');
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
-
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/ping', router.get('/', (req, res, next) => {
+  return res.status(200).json("Server running");
+}));
+
 
 // General error handling
 const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
@@ -47,6 +51,8 @@ export const start = async () => {
   await connectToDB();
   if(process.env.NODE_ENV !== 'test'){
     await seedAdminUser()
+    // Auth-ms is publisher only, no need to subscribe to exchanges
+    await connectToRabbitMQ();
     app.listen(port, () => { console.log(`REST API listening on port: ${port}`) });
   }
   app.emit("appStarted");

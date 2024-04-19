@@ -9,7 +9,7 @@ export const isAuth : RequestHandler = async(req, res, next) => {
     return res.status(401)
       .json({ message: 'Not authenticated.' })
   }
-  const publicKey = process.env.PUBLIC_KEY;
+  const publicKey = process.env.PUBLIC_KEY.replace(/\\n/g, '\n');
   const token = authHeaders.split(' ')[1];
 
   let decodedToken;

@@ -1,0 +1,13 @@
+node_modules
+**/npm-debug.log
+**/build
+*.dockerignore
+**/.env
+**/.env.test
+**/dotenv.local.example
+**/dotenv.test.example
+**/Dockerfile
+**/Dockerfile.e2e
+**/.git
+**/.DS_Store
+**/node_modules

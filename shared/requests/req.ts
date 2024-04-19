@@ -6,6 +6,7 @@ export interface registerUserPayload{
     lastName: string;
     address: string;
     phone: string;
+    acceptedTermsAndConditions: boolean;
 }
 export interface createListingPayload {
     propertyType: string
@@ -14,7 +15,6 @@ export interface createListingPayload {
     size: number
     startingPrice: number
     buyoutPrice: number
-    hasSold: boolean
     location: string
     startsOn: Date
     endsOn: Date

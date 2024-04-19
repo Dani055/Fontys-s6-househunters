@@ -1,0 +1,15 @@
+
+@media (min-width: 992px) {
+    .card-registration-2 .bgIndigo {
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+  }
+  
+  @media (max-width: 991px) {
+    .card-registration-2 .bgIndigo {
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+  }
+  

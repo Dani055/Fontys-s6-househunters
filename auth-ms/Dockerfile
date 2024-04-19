@@ -12,9 +12,11 @@ COPY auth-ms auth-ms
 
 COPY shared shared
 
-RUN npm install -g npm@10.2.5
+WORKDIR /shared
+RUN npm install
 
 WORKDIR /auth-ms
+RUN npm install
 RUN npm run build
 
 FROM node:iron-alpine as prod
