@@ -6,7 +6,7 @@ stages:
   - build
 
 # Common scripts
-.common_scripts:
+common_scripts:
   npm_shared:
     - cd shared
     - npm install
@@ -22,13 +22,13 @@ stages:
     - npm install
 
 # Templates
-.build_template:
+build_template:
   image: node:iron-alpine
   stage: build
   before_script:
     - !reference [.common_scripts, npm_shared]
 
-.test_template:
+test_template:
   image: node:iron-alpine
   services:
     - name: mongodb/mongodb-community-server:latest
@@ -38,26 +38,26 @@ stages:
     - !reference [.common_scripts, npm_shared]
 
 # Build
-.build-auth-ms:
+build-auth-ms:
   extends: .build_template
   script:
     - !reference [.common_scripts, npm_auth_ms]
     - npm run build
 
-.build-listing-ms:
+build-listing-ms:
   extends: .build_template
   script:
     - !reference [.common_scripts, npm_listing_ms]
     - npm run build
 
-.build-bid-ms:
+build-bid-ms:
   extends: .build_template
   script:
     - !reference [.common_scripts, npm_bid_ms]
     - npm run build
 
 # Test
-.test-auth-ms:
+test-auth-ms:
   extends: .test_template
   variables:
     DB_CON_STRING: "mongodb://mongo-integration:27017/integration-hh-users"
@@ -66,7 +66,7 @@ stages:
     - cp dotenv.test.example .env.test
     - npm run test
 
-.test-listing-ms:
+test-listing-ms:
   extends: .test_template
   variables:
     DB_CON_STRING: "mongodb://mongo-integration:27017/integration-hh-listings"
@@ -75,7 +75,7 @@ stages:
     - cp dotenv.test.example .env.test
     - npm run test
 
-.test-bid-ms:
+test-bid-ms:
   extends: .test_template
   variables:
     DB_CON_STRING: "mongodb://mongo-integration:27017/integration-hh-bids"
@@ -84,7 +84,7 @@ stages:
     - cp dotenv.test.example .env.test
     - npm run test
 
-.test-e2e:
+test-e2e:
   stage: e2e
   image: docker:25.0.3
   services:
@@ -103,7 +103,7 @@ stages:
     - docker exec e2e_tests sh -c 'npm i'
     - docker exec e2e_tests sh -c 'npm run test:e2e'
 
-.security-owasp-zap:
+security-owasp-zap:
   stage: security
   image: docker:25.0.3
   services:
@@ -120,7 +120,7 @@ stages:
 build-docker-production:
   stage: build
   rules:
-    - if: $CI_COMMIT_BRANCH == "dev"
+    - if: $CI_COMMIT_BRANCH == "main"
   image: docker:25.0.3
   services:
     - docker:25.0.3-dind
