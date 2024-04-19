@@ -6,7 +6,7 @@ stages:
   - build
 
 # Common scripts
-common_scripts:
+.common_scripts:
   npm_shared:
     - cd shared
     - npm install
@@ -22,13 +22,13 @@ common_scripts:
     - npm install
 
 # Templates
-build_template:
+.build_template:
   image: node:iron-alpine
   stage: build
   before_script:
     - !reference [.common_scripts, npm_shared]
 
-test_template:
+.test_template:
   image: node:iron-alpine
   services:
     - name: mongodb/mongodb-community-server:latest
