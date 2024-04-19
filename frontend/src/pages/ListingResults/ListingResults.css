@@ -1,0 +1,11 @@
+.bd-callout {
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+    margin-left: 0.25rem;
+    background-color: var(--bd-callout-bg, var(--bs-gray-100));
+    border-left: 0.25rem solid var(--bd-callout-border, var(--bs-gray-300));
+}
+.bd-callout-warning {
+    --bd-callout-bg: rgba(var(--bs-warning-rgb), .075);
+    --bd-callout-border: rgba(var(--bs-warning-rgb), .5);
+}

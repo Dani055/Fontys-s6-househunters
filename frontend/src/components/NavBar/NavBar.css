@@ -1,0 +1,12 @@
+.navbar .header-media-logo{
+    max-width: 10%;
+}
+.navbar .media:hover{
+    opacity: 0.8;
+}
+.navbar .media img{
+    border-radius: 3px;
+}
+.text-small{
+    font-size: 85%;
+}

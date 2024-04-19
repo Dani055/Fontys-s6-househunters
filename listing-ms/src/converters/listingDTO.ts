@@ -22,7 +22,7 @@ export function mapListingToDTO(listing: IListing) {
         location: listing.location,
         startsOn: listing.startsOn,
         endsOn: listing.endsOn,
-        creatorId: listing.creatorId.toString(),
+        creatorId: listing.creatorId ? listing.creatorId.toString() : null,
         images: listing.images,
         comments: commentsDto
     }

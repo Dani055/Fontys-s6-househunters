@@ -1,0 +1,12 @@
+.pagination{
+    --bs-pagination-color: black !important;
+    --bs-pagination-hover-color: black !important;
+}
+
+.active>.page-link{
+    background-color: var(--bs-gray-dark) !important;
+    border-color: var(--bs-gray-dark) !important;
+}
+.active>.page-link:hover{
+    opacity: 0.9;
+}

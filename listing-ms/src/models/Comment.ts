@@ -9,6 +9,7 @@ export interface IComment extends IBase {
 const commentSchema = new Schema<IComment>({
   text: {
     type: Schema.Types.String,
+    required: true,
   },
   listingId: {
     type: Schema.Types.ObjectId,

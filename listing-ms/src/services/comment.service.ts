@@ -1,5 +1,5 @@
 import { createCommentPayload } from 'shared/requests/req';
-import { createComment, deleteComment, getCommentById } from '../repository/comment.repository';
+import { createComment, deleteComment, getCommentById, getCommentsByListingId } from '../repository/comment.repository';
 import { getListingbyId } from '../repository/listing.repository';
 import { hasListingEnded } from 'shared/functions/listingValidator';
 import { ResponseError } from 'shared/responses/responseError';
@@ -15,7 +15,7 @@ export const postComment = async (userId: string, listingId: string, commentInfo
 export const removeComment = async (userId: string, userRoles: string[], commentId: string) => {
     const comment = await getCommentById(commentId);
 
-    if(comment.creatorId.toString() !== userId && !hasRequiredRoles(userRoles, ['Admin'])){
+    if(comment.creatorId?.toString() !== userId && !hasRequiredRoles(userRoles, ['Admin'])){
         throw new ResponseError(401, "You cannot delete someone else's comment")
     }
     return await deleteComment(commentId);

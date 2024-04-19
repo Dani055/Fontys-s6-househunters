@@ -1,0 +1,19 @@
+# Node 20.x LTS
+FROM node:iron-alpine as base
+
+ARG PORT
+
+ENV VITE_PORT=$PORT
+
+WORKDIR /
+
+# Copy dependencies that we need
+COPY frontend frontend
+
+WORKDIR /frontend
+
+RUN npm install
+RUN apk update && apk add --no-cache xdg-utils && apk add curl && apk add bash
+RUN npm run build 
+EXPOSE $PORT
+CMD ["/bin/bash", "./entrypoint-e2.sh"]
