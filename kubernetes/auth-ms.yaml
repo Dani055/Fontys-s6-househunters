@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: auth-ms
+    version: "1.0"
+  name: auth-ms-deployment
+  namespace: househunters
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-ms
+  template:
+    metadata:
+      labels:
+        app: auth-ms
+        version: "1.0"
+    spec:
+      # serviceAccountName: acua-ksa
+      containers:
+      - name: auth-ms-container
+        image: ydoykov/s6-househunters-auth-ms:latest
+        imagePullPolicy: Always
+        env:
+          - name: DB_CON_STRING
+            valueFrom:
+              secretKeyRef:
+                name: shared-secrets
+                key: DB_CON_STRING
+          - name: DB_NAME
+            value: "hh-users"
+          - name: PORT
+            value: "9998"
+          - name: PRIVATE_KEY
+            valueFrom:
+              secretKeyRef:
+                name: shared-secrets
+                key: PRIVATE_KEY
+          - name: PUBLIC_KEY
+            valueFrom:
+              secretKeyRef:
+                name: shared-secrets
+                key: PUBLIC_KEY
+          - name: RABBITMQ_HOST
+            value: "rabbitmq-service"
+          - name: RABBITMQ_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: shared-secrets
+                key: RABBITMQ_USERNAME
+          - name: RABBITMQ_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: shared-secrets
+                key: RABBITMQ_PASSWORD
+        ports:
+        - containerPort: 9998
+        resources:
+          limits:
+            cpu: 300m
+            memory: 512Mi
+          requests:
+            cpu: 150m
+            memory: 256Mi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: auth-ms
+  name: auth-ms-service
+  namespace: househunters
+spec:
+  ports:
+    - name: http
+      # Internal cluster port
+      port: 9998
+      # Port inside of pod
+      targetPort: 9998
+  selector:
+    # Pods with label
+    app: auth-ms
+
+---
+
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: auth-ms-autoscaler
+  namespace: househunters
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: auth-ms-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50

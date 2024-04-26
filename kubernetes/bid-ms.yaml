@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: bid-ms
+    version: "1.0"
+  name: bid-ms-deployment
+  namespace: househunters
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bid-ms
+  template:
+    metadata:
+      labels:
+        app: bid-ms
+        version: "1.0"
+    spec:
+      # serviceAccountName: acua-ksa
+      containers:
+      - name: bid-ms-container
+        image: ydoykov/s6-househunters-bid-ms:latest
+        imagePullPolicy: Always
+        env:
+          - name: DB_CON_STRING
+            valueFrom:
+              secretKeyRef:
+                name: shared-secrets
+                key: DB_CON_STRING
+          - name: DB_NAME
+            value: "hh-bids"
+          - name: PORT
+            value: "9996"
+          - name: RABBITMQ_HOST
+            value: "rabbitmq-service"
+          - name: RABBITMQ_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: shared-secrets
+                key: RABBITMQ_USERNAME
+          - name: RABBITMQ_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: shared-secrets
+                key: RABBITMQ_PASSWORD
+          - name: PUBLIC_KEY
+            valueFrom:
+              secretKeyRef:
+                name: shared-secrets
+                key: PUBLIC_KEY
+        ports:
+        - containerPort: 9996
+        resources:
+          limits:
+            cpu: 300m
+            memory: 512Mi
+          requests:
+            cpu: 150m
+            memory: 256Mi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: bid-ms
+  name: bid-ms-service
+  namespace: househunters
+spec:
+  ports:
+    - name: http
+      # Internal cluster port
+      port: 9996
+      # Port inside of pod
+      targetPort: 9996
+  selector:
+    # Pods with label
+    app: bid-ms
+
+---
+
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: bid-ms-autoscaler
+  namespace: househunters
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: bid-ms-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50

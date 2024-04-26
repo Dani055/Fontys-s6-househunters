@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: rabbitmq
+    version: "1.0"
+  name: rabbitmq-statefulset
+  namespace: househunters
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+        version: "1.0"
+    spec:
+      containers:
+      - name: rabbitmq-container
+        image: rabbitmq:management
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: RABBITMQ_DEFAULT_USER
+            valueFrom:
+              secretKeyRef:
+                name: shared-secrets
+                key: RABBITMQ_USERNAME
+          - name: RABBITMQ_DEFAULT_PASS
+            valueFrom:
+              secretKeyRef:
+                name: shared-secrets
+                key: RABBITMQ_PASSWORD
+        ports:
+        - containerPort: 5672
+          name: connection-port
+        - containerPort: 15672
+          name: management-port
+        resources:
+          limits:
+            cpu: 1
+            memory: 2Gi
+          requests:
+            cpu: 500m
+            memory: 1Gi
+        command:
+          - rabbitmq-server
+          - "--management.path_prefix=/rabbitmq"
+        volumeMounts:
+        - name: rabbitmq-data
+          mountPath: /var/lib/rabbitmq
+  volumeClaimTemplates:
+  - metadata:
+      name: rabbitmq-data
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: rabbitmq
+  name: rabbitmq-service
+  namespace: househunters
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      # Internal cluster port
+      port: 5672
+      # Port inside of pod
+      targetPort: 5672
+      nodePort: 30001
+    - name: management
+      # Internal cluster port
+      port: 15672
+      # Port inside of pod
+      targetPort: 15672
+  selector:
+    # Pods with label
+    app: rabbitmq
