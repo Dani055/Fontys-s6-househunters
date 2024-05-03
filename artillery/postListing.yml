@@ -1,0 +1,41 @@
+config:
+  # This is a test server run by team Artillery
+  # It's designed to be highly scalable
+  target: http://localhost:9997
+  phases:
+    - duration: 60
+      arrivalRate: 1
+      rampTo: 5
+      name: Warm up phase
+    - duration: 60
+      arrivalRate: 5
+      rampTo: 10
+      name: Ramp up load
+    - duration: 30
+      arrivalRate: 10
+      rampTo: 30
+      name: Spike phase
+  plugins:
+    ensure: {}
+    apdex: {}
+    metrics-by-endpoint: {}
+  apdex:
+    threshold: 100
+scenarios:
+  - flow:
+      - loop:
+        - post:
+            url: "/api/listing"
+            json:
+              propertyType: "an house"
+              buildYear: 2055
+              size: 150
+              listingDescription: "description here"
+              startingPrice: 2000
+              buyoutPrice: 5000
+              location: "Eindhoven"
+              startsOn: "2024-07-22T21:23:33.000Z"
+              endsOn: "2024-08-22T21:23:33.000Z"
+            headers:
+              authorization: "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjAyYzgyOWZjMzM4ODc1NjYyZmI5NzEiLCJlbWFpbCI6Impkb2VAbWFpbC5jb20iLCJyb2xlcyI6WyJVc2VyIl0sImlhdCI6MTcxMjk5ODU0MiwiZXhwIjoxNzEzMDE2NTQyfQ.cnceYWZkihQThmB4e0QXBVcjLER_sLNbkFoeS1ZFroMswmmMzM9sBxYSQsyAAuNVnRrXOYc_khy6S6lGZ-q9jPePsc8DS6Kpwxbyu2mxxh5Y-lNH7apVdnYkTlmK0DLBV-OQqxzJAZiECBHG1YPxHuF5n7d3io49tO6-he9IhcnQGU38R8m7z--GMGEdamy8k7DCEMKFe-r4Q1OwMV-Mt3Eqb_eqUba03Jm-yMHOAs4Fxd-FmRZuviLVWesx1zCK_DOAXdbUoJ1zA602cNuAyHyoMJSIiRrPrAeKpgqyeONq2wgCqqhnkp5HT_PjWUM99SBV5HXQVqHFr-f1MlKDOQ"
+        count: 30

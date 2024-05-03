@@ -1,0 +1,33 @@
+config:
+  # This is a test server run by team Artillery
+  # It's designed to be highly scalable
+  target: http://localhost:9997
+  phases:
+    # - duration: 60
+    #   arrivalRate: 1
+    #   rampTo: 5
+    #   name: Warm up phase
+    # - duration: 60
+    #   arrivalRate: 5
+    #   rampTo: 10
+    #   name: Ramp up load
+    - duration: 30
+      arrivalRate: 10
+      rampTo: 30
+      name: Spike phase
+  plugins:
+    ensure: {}
+    apdex: {}
+    metrics-by-endpoint: {}
+  apdex:
+    threshold: 100
+scenarios:
+  - flow:
+      - loop:
+        - post:
+            url: "/api/comment?listingId=661a3eaa7bfe418371b0a59c"
+            json:
+              text: "hello there"
+            headers:
+              authorization: "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjAyYzgyOWZjMzM4ODc1NjYyZmI5NzEiLCJlbWFpbCI6Impkb2VAbWFpbC5jb20iLCJyb2xlcyI6WyJVc2VyIl0sImlhdCI6MTcxMjk5NDMyMCwiZXhwIjoxNzEzMDEyMzIwfQ.GetDPt4PEYA_F-uAKkxWBPw_scgON35ImQozlj8PhzoarWiUyIAc2H7-LWSAmeRvNwKdz2AhZyBEBm5WYzDB7gEwsUxkK0xEX6GWYEXf7zxxm7ICFQ5YdtRuz8io1TjjbP4fho_DldNsra0-90TUh4KBVgkrWer61ZSUM1WWxxYo5HvXEzExbyG-9QB8yGcZIVap4IZFOSdKODray9FrL7uU9xwSFsfbdXXQuoB08XfS-IT5YwL8MFwQAyDhkzYO3idRt9znTswd2CKc2R31jAbYVmvJImnXUjWsPrdG0p74-k8tNHbcKdDCG9bfTgJMn2mhWdGKLbne_xVO1qIYBw"
+        count: 100
