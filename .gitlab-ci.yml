@@ -119,7 +119,7 @@ security-owasp-zap:
     - docker run --network=host --rm -v $(pwd)/zap:/zap/wrk/ -t softwaresecurityproject/zap-stable zap-full-scan.py -t http://localhost:3000 -c zap.conf 
 
 build-docker-production:
-  stage: build
+  stage: image_build
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
   image: docker:25.0.3
