@@ -154,6 +154,6 @@ deploy_k8s_production:
     - gcloud container clusters get-credentials househunters-cluster-1 --project=househunters-423407 --location=europe-west1
     - kubectl config set-context --current --namespace=househunters
     - cd kubernetes
-    - kubectl apply -f message-broker.yaml -f auth-ms.yaml
+    - kubectl apply -f message-broker.yaml -f auth-ms.yaml -f listing-ms.yaml -f bid-ms.yaml -f media-ms.yaml -f frontend.yaml -f ingress-gce.yaml
 
 
