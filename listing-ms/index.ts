@@ -32,6 +32,9 @@ app.use('/api/comment', commentRoutes);
 app.use('/api/ping', router.get('/', (req, res, next) => {
   return res.status(200).json("Server running");
 }));
+app.use('/', router.get('/', (req, res, next) => {
+  return res.status(200).json("Server running");
+}));
 
 // General error handling
 const errorHandler: ErrorRequestHandler = (error, req, res, next) => {

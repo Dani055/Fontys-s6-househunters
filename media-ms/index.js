@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config()
-import express from 'express';
+import express, { Router } from 'express';
 import bodyParser from 'body-parser';
 
 const port = process.env.PORT || 9999;
@@ -9,7 +9,7 @@ const app = express();
 import multer from 'multer';
 import feedRoutes, { subToChannel } from './routes/feed.js'
 import { channel, connectToRabbitMQ } from './messaging/connect.js';
-
+const router = Router()
 
 app.disable('x-powered-by');
 
@@ -23,6 +23,9 @@ app.use((req, res, next) => {
 
 
 app.use('/api/media', feedRoutes);
+app.use('/', router.get('/', (req, res, next) => {
+  return res.status(200).json("Server running");
+}));
 
 // General error handling
 app.use((error, req, res, next) => {

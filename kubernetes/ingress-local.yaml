@@ -1,0 +1,74 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app: househunters-ingress
+  name: househunters-ingress
+  namespace: househunters
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /api/auth
+        pathType: Prefix
+        backend:
+          service:
+            # Service with name
+            name: auth-ms-service
+            # Internal cluster port
+            port:
+              number: 9998
+      - path: /api/user
+        pathType: Prefix
+        backend:
+          service:
+            # Service with name
+            name: auth-ms-service
+            # Internal cluster port
+            port:
+              number: 9998
+      - path: /api/listing
+        pathType: Prefix
+        backend:
+          service:
+            # Service with name
+            name: listing-ms-service
+            # Internal cluster port
+            port:
+              number: 9997
+      - path: /api/comment
+        pathType: Prefix
+        backend:
+          service:
+            # Service with name
+            name: listing-ms-service
+            # Internal cluster port
+            port:
+              number: 9997
+      - path: /api/bid
+        pathType: Prefix
+        backend:
+          service:
+            # Service with name
+            name: bid-ms-service
+            # Internal cluster port
+            port:
+              number: 9996
+      - path: /api/media
+        pathType: Prefix
+        backend:
+          service:
+            # Service with name
+            name: media-ms-service
+            # Internal cluster port
+            port:
+              number: 9999
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            # Service with name
+            name: frontend-service
+            # Internal cluster port
+            port:
+              number: 3000
