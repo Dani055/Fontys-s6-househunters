@@ -1,5 +1,5 @@
 
-import express, { Express, ErrorRequestHandler } from 'express';
+import express, { Express, ErrorRequestHandler, Router } from 'express';
 import dotenv from 'dotenv';
 
 dotenv.config({path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'})
@@ -14,6 +14,7 @@ import { seedDatabase } from './src/database/seed';
 
 const port = process.env.PORT;
 const app: Express = express();
+const router = Router()
 
 app.disable('x-powered-by');
 app.use(bodyParser.json());
@@ -25,6 +26,9 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/bid', bidRoutes);
+app.use('/', router.get('/', (req, res, next) => {
+  return res.status(200).json("Server running");
+}));
 
 // General error handling
 const errorHandler: ErrorRequestHandler = (error, req, res, next) => {

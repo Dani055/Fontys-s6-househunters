@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: listing-ms
+    version: "1.0"
+  name: listing-ms-deployment
+  namespace: househunters
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: listing-ms
+  template:
+    metadata:
+      labels:
+        app: listing-ms
+        version: "1.0"
+    spec:
+      containers:
+      - name: listing-ms-container
+        image: ydoykov/s6-househunters-listing-ms:latest
+        imagePullPolicy: Always
+        env:
+          - name: DB_CON_STRING
+            valueFrom:
+              secretKeyRef:
+                name: shared-secrets
+                key: DB_CON_STRING
+          - name: DB_NAME
+            value: "hh-listings"
+          - name: PORT
+            value: "9997"
+          - name: RABBITMQ_HOST
+            value: "rabbitmq-service"
+          - name: RABBITMQ_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: shared-secrets
+                key: RABBITMQ_USERNAME
+          - name: RABBITMQ_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: shared-secrets
+                key: RABBITMQ_PASSWORD
+          - name: PUBLIC_KEY
+            valueFrom:
+              secretKeyRef:
+                name: shared-secrets
+                key: PUBLIC_KEY
+        ports:
+        - containerPort: 9997
+        resources:
+          limits:
+            cpu: 300m
+            memory: 256Mi
+          requests:
+            cpu: 150m
+            memory: 128Mi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: listing-ms
+  name: listing-ms-service
+  namespace: househunters
+spec:
+  ports:
+    - name: http
+      # Internal cluster port
+      port: 9997
+      # Port inside of pod
+      targetPort: 9997
+  selector:
+    # Pods with label
+    app: listing-ms
+
+---
+
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: listing-ms-autoscaler
+  namespace: househunters
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: listing-ms-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 60

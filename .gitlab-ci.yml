@@ -3,7 +3,7 @@ stages:
   - test
   - e2e
   - security
-  - build
+  - image_build
 
 # Common scripts
 .common_scripts:
