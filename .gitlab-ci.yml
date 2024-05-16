@@ -151,7 +151,7 @@ deploy_k8s_production:
   image: gcr.io/google.com/cloudsdktool/google-cloud-cli:latest
   script:
     - gcloud auth activate-service-account --key-file "$GCLOUD_KEY"
-    - gcloud container clusters get-credentials househunters-cluster-1
+    - gcloud container clusters get-credentials househunters-cluster-1 --location=europe-west1
     - kubectl get ingress
 
 
