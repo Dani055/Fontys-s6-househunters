@@ -1,16 +1,8 @@
 config:
   # This is a test server run by team Artillery
   # It's designed to be highly scalable
-  target: http://localhost:9997
+  target: http://172.21.55.8
   phases:
-    # - duration: 60
-    #   arrivalRate: 1
-    #   rampTo: 5
-    #   name: Warm up phase
-    # - duration: 60
-    #   arrivalRate: 5
-    #   rampTo: 10
-    #   name: Ramp up load
     - duration: 30
       arrivalRate: 10
       rampTo: 30
@@ -25,9 +17,9 @@ scenarios:
   - flow:
       - loop:
         - post:
-            url: "/api/comment?listingId=661a3eaa7bfe418371b0a59c"
+            url: "/api/comment?listingId=66261a1e83fa59ebdcbac70f"
             json:
               text: "hello there"
             headers:
-              authorization: "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjAyYzgyOWZjMzM4ODc1NjYyZmI5NzEiLCJlbWFpbCI6Impkb2VAbWFpbC5jb20iLCJyb2xlcyI6WyJVc2VyIl0sImlhdCI6MTcxMjk5NDMyMCwiZXhwIjoxNzEzMDEyMzIwfQ.GetDPt4PEYA_F-uAKkxWBPw_scgON35ImQozlj8PhzoarWiUyIAc2H7-LWSAmeRvNwKdz2AhZyBEBm5WYzDB7gEwsUxkK0xEX6GWYEXf7zxxm7ICFQ5YdtRuz8io1TjjbP4fho_DldNsra0-90TUh4KBVgkrWer61ZSUM1WWxxYo5HvXEzExbyG-9QB8yGcZIVap4IZFOSdKODray9FrL7uU9xwSFsfbdXXQuoB08XfS-IT5YwL8MFwQAyDhkzYO3idRt9znTswd2CKc2R31jAbYVmvJImnXUjWsPrdG0p74-k8tNHbcKdDCG9bfTgJMn2mhWdGKLbne_xVO1qIYBw"
+              authorization: "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlODExNzViMDkyZjc0N2ZjMDgyM2QiLCJlbWFpbCI6Impkb2VAbWFpbC5jb20iLCJyb2xlcyI6WyJVc2VyIl0sImlhdCI6MTcxNDc1NDM3NSwiZXhwIjoxNzE0NzcyMzc1fQ.ufHf4UzaBHm4SWKmCoDsHT0cjpnu89xzkmpR2F2mLTshGbrrDzkWGyGB4g_splT25yVcXGzvIS7WhMVpEMvtj4yEp1EQpxtgCiPVrlaxezb72K5bZBox0Lhi6L-28sF15V-Vl0KjZbrQo_OkDjGYoyy3LjGLu4LUUg8-wznM9wVTY-wtHrZV9gcmwL9PEmy_K49F7X9zVBgu3ylvAEXQXtAXtPOk9UzD1qYa9k0obzaY_6pF6tFAik8AvRljNXpLwPB4cRP6baw6IlmXa_-oBdmzWslRjcTjRsLy6DvTYADT6RxIqBV6glDovMsChW9CyU03EBx3rfDcHV8JEcY_nw"
         count: 100

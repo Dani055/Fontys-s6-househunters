@@ -17,7 +17,6 @@ spec:
         app: listing-ms
         version: "1.0"
     spec:
-      # serviceAccountName: acua-ksa
       containers:
       - name: listing-ms-container
         image: ydoykov/s6-househunters-listing-ms:latest
@@ -54,10 +53,10 @@ spec:
         resources:
           limits:
             cpu: 300m
-            memory: 512Mi
+            memory: 256Mi
           requests:
             cpu: 150m
-            memory: 256Mi
+            memory: 128Mi
 
 ---
 
@@ -93,4 +92,4 @@ spec:
     name: listing-ms-deployment
   minReplicas: 1
   maxReplicas: 10
-  targetCPUUtilizationPercentage: 50
+  targetCPUUtilizationPercentage: 60

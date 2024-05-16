@@ -1,7 +1,7 @@
 config:
   # This is a test server run by team Artillery
   # It's designed to be highly scalable
-  target: http://localhost:9997
+  target: http://172.21.59.255
   phases:
     - duration: 30
       arrivalRate: 10
@@ -17,7 +17,5 @@ scenarios:
   - flow:
       - loop:
         - get:
-            url: "/api/listing/661a4899561ce65eb6ebd7b6"
-            headers:
-              authorization: "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjExOGFiNGNhZDU2MjE3NzYzMWU1YTEiLCJlbWFpbCI6ImRlbGV0ZUBtYWlsLmNvbSIsInJvbGVzIjpbIlVzZXIiXSwiaWF0IjoxNzEyODQ4NzU0LCJleHAiOjE3MTI4NjY3NTR9.eJ7rc1sxS-rttDrKIIlffK4V9RjbWtCPyszdePPSlGZIA66_NxrMYWOzivjE0GuwZKt1trXxyJjk6iw-vw7XBVlMYDJtVd0E0UIoWcpd6PNNHa9O4k9r1R_ZE4UApgYONKODywY2D1mkeWcG9aWkRifg6WrEGdora2ZEYNUlvs102bQqlLyc_NiuQaMYZsWAnfYwq3_XBlvLdc4YF6BK6iPd6nC-g2cVpAMhEMBqL1MXVDnPmG3cQVoHLvxychyZP58LL1qN3Jfnhtxm4WkG6x9p2UEpslc105Jte9o5o3-nQime8nbAnChDNVjfrVLWO5SpRQVkuTInchZxLiFDGA"
+            url: "/api/listing/66261a1e83fa59ebdcbac70f"
         count: 100

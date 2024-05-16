@@ -54,8 +54,8 @@ spec:
             # Internal cluster port
             port:
               number: 9996
-      - path: /(api/media.*)
-        pathType: ImplementationSpecific
+      - path: /api/media
+        pathType: Prefix
         backend:
           service:
             # Service with name

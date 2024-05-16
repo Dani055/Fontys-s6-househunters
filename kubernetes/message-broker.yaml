@@ -40,10 +40,10 @@ spec:
         resources:
           limits:
             cpu: 1
-            memory: 2Gi
+            memory: 1Gi
           requests:
             cpu: 500m
-            memory: 1Gi
+            memory: 500Mi
         command:
           - rabbitmq-server
           - "--management.path_prefix=/rabbitmq"
@@ -77,12 +77,12 @@ spec:
       port: 5672
       # Port inside of pod
       targetPort: 5672
-      nodePort: 30001
     - name: management
       # Internal cluster port
       port: 15672
       # Port inside of pod
       targetPort: 15672
+      nodePort: 30000
   selector:
     # Pods with label
     app: rabbitmq
