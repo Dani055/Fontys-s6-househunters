@@ -153,6 +153,7 @@ deploy_k8s_production:
     - gcloud auth activate-service-account --key-file "$GCLOUD_KEY"
     - gcloud container clusters get-credentials househunters-cluster-1 --project=househunters-423407 --location=europe-west1
     - kubectl config set-context --current --namespace=househunters
+    - cd kubernetes
     - kubectl apply -f message-broker.yaml -f auth-ms.yaml
 
 
