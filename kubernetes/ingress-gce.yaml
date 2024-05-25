@@ -61,7 +61,7 @@ spec:
                 # Internal cluster port
                 port:
                   number: 9996
-          - path: /api/mediaa
+          - path: /api/media
             pathType: Prefix
             backend:
               service:
