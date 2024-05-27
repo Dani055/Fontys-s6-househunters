@@ -116,7 +116,7 @@ security-owasp-zap:
   script:
     - docker compose -f docker-compose-e2e.yml -f docker-compose-e2e-ci.yml up -d
     - sleep 20
-    - docker run --network=host --rm -v $(pwd)/zap:/zap/wrk/ -t softwaresecurityproject/zap-stable zap-full-scan.py -t http://localhost:3000 -c zap.conf 
+    - docker run --network=host --rm -v ./zap:/zap/wrk/ -t softwaresecurityproject/zap-stable zap-full-scan.py -t http://localhost:3000 -c zap.conf 
 
 build-docker-production:
   stage: image_build
