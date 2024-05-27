@@ -36,7 +36,6 @@ export const handleRegister: RequestHandler = async (req, res, next) => {
 };
 export const handleGetuserByToken: RequestHandler = async (req, res, next) => {
   try {
-    throw new ResponseError(500, "User's there");
     const userId = req.userId;
     const user = await getUserById(userId)
     const dto = mapUserToUserDTO(user)
