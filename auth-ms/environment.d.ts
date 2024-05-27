@@ -7,6 +7,7 @@ declare global {
         PORT: string;
         PRIVATE_KEY: string;
         PUBLIC_KEY: string;
+        SENTRY_DSN: string;
         RABBITMQ_HOST: string;
         RABBITMQ_USERNAME: string;
         RABBITMQ_PASSWORD: string;

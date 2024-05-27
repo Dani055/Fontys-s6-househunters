@@ -3,6 +3,7 @@ import { mapUserToUserDTO } from 'auth-ms/src/converters/userDTO';
 import { registerUserPayload } from 'shared/requests/req'
 import { LoginResponse, UserDtoResponse } from 'shared/responses/res'
 import { RequestHandler } from 'express';
+import { ResponseError } from 'shared/responses/responseError';
 
 export const handleLogin: RequestHandler = async (req, res, next) => {
   try {
@@ -35,6 +36,7 @@ export const handleRegister: RequestHandler = async (req, res, next) => {
 };
 export const handleGetuserByToken: RequestHandler = async (req, res, next) => {
   try {
+    throw new ResponseError(500, "User's there");
     const userId = req.userId;
     const user = await getUserById(userId)
     const dto = mapUserToUserDTO(user)

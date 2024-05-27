@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config()
 import express, { Router } from 'express';
+import './sentry.js'
+import * as Sentry from '@sentry/node';
 import bodyParser from 'body-parser';
 
 const port = process.env.PORT || 9999;

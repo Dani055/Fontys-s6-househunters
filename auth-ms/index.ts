@@ -2,6 +2,8 @@
 import express, { Express, ErrorRequestHandler, Router } from 'express';
 import dotenv from 'dotenv';
 dotenv.config({path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'})
+import 'shared/sentry/instrument'
+import * as Sentry from '@sentry/node';
 
 import bodyParser from 'body-parser';
 
@@ -10,6 +12,7 @@ import userRoutes from './src/routes/user'
 import connectToDB from './src/database/database';
 import { seedAdminUser } from './src/models/User';
 import { connectToRabbitMQ } from './src/messaging/connect';
+
 const router = Router()
 
 const port = process.env.PORT;
@@ -37,6 +40,14 @@ app.use('/', router.get('/', (req, res, next) => {
 const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
   const status = error.statusCode || 500;
   let message;
+  // Sentry monitoring
+  if(status >= 500){
+    if(req.userId){
+      Sentry.setUser({userId: req.userId, email: req.email, roles: req.userRoles});
+    }
+    Sentry.captureException(error);
+  }
+
   if(error.name==="CastError"){
     message = `Invalid ${error.kind} for ${error.value}`
   }
@@ -44,9 +55,8 @@ const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
     message = error.message;
   }
   res.status(status).json({ message: message });
-  next();
+  next()
 }
-
 app.use(errorHandler);
 
 export const start = async () => {

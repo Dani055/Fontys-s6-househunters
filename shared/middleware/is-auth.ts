@@ -20,6 +20,8 @@ export const isAuth : RequestHandler = async(req, res, next) => {
     }
     req.userId = decodedToken.sub.toString();
     req.userRoles = decodedToken.roles;
+    req.email = decodedToken.email;
+    
     next();
   } catch (error) {
     let newError;

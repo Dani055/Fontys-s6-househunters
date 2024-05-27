@@ -49,6 +49,11 @@ spec:
               secretKeyRef:
                 name: shared-secrets
                 key: PUBLIC_KEY
+          - name: SENTRY_DSN
+            valueFrom:
+              secretKeyRef:
+                name: shared-secrets
+                key: SENTRY_DSN_BID_MS
         ports:
         - containerPort: 9996
         resources:

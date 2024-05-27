@@ -1,9 +1,10 @@
 
 import express, { Express, ErrorRequestHandler, Router } from 'express';
 import dotenv from 'dotenv';
-
 dotenv.config({path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'})
 
+import 'shared/sentry/instrument'
+import * as Sentry from '@sentry/node';
 import bodyParser from 'body-parser';
 
 import bidRoutes from './src/routes/bid'
@@ -34,6 +35,12 @@ app.use('/', router.get('/', (req, res, next) => {
 const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
   const status = error.statusCode || 500;
   let message;
+  if(status >= 500){
+    if(req.userId){
+      Sentry.setUser({userId: req.userId, email: req.email, roles: req.userRoles});
+    }
+    Sentry.captureException(error);
+  }
   if(error.name==="CastError"){
     message = `Invalid ${error.kind} for ${error.value}`
   }

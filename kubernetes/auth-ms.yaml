@@ -42,6 +42,11 @@ spec:
               secretKeyRef:
                 name: shared-secrets
                 key: PUBLIC_KEY
+          - name: SENTRY_DSN
+            valueFrom:
+              secretKeyRef:
+                name: shared-secrets
+                key: SENTRY_DSN_AUTH_MS
           - name: RABBITMQ_HOST
             value: "rabbitmq-service"
           - name: RABBITMQ_USERNAME
