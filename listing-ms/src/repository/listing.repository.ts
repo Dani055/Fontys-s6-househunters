@@ -4,15 +4,37 @@ import ListingEntity, { IListing } from '../models/Listing';
 import { createListingPayload } from 'shared/requests/req';
 import dayjs from 'dayjs';
 import { channel } from '../messaging/connect';
+import mongoose from 'mongoose';
 
 export const createListing = async (userId: string, payload: createListingPayload) => {
-    const listing = await ListingEntity.create({ ...payload, images: [], creatorId: userId });
-    return listing as IListing
+        const listing = await ListingEntity.create({ ...payload, images: [], creatorId: userId });
+        channel?.publish('listing_created', '', Buffer.from(JSON.stringify(listing)));
+        return listing as IListing
+    // const session = await mongoose.startSession();
+    // session.startTransaction()
+    // try {
+    //     const [listing] = await ListingEntity.create([{ ...payload, images: [], creatorId: userId }], {session});
+    //     channel?.publish('listing_created', '', Buffer.from(JSON.stringify(listing)));
+    //     await session.commitTransaction();
+    //     return listing as IListing
+
+    // } catch (error) {
+    //     console.log("ABORTING TRANSACTION")
+    //     await session.abortTransaction();
+    //     throw error;
+    // } finally {
+    //     session.endSession();
+    //     console.log("ENDING SESSION");
+    // }
 };
 export const editListing = async (originalListing: IListing, payload: createListingPayload) => {
+
     const listing = await ListingEntity.findByIdAndUpdate(originalListing._id, { ...payload, creatorId: undefined, hasSold: false, images: payload.newImages ? [] : undefined, comments: undefined }, { new: true })
     const imagesToDelete = payload.newImages ? originalListing.images : [];
-    return { imagesToDelete, listing: listing as IListing }
+    channel?.publish('listing_edited', '', Buffer.from(JSON.stringify({ listing: listing, imagesToDelete })));
+
+    return listing as IListing
+
 };
 export const assignListingPhotos = async (listingId: string, links: string[]) => {
     const listing = await ListingEntity.findByIdAndUpdate(listingId, { images: links }, { new: true });

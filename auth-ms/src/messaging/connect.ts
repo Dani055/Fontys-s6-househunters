@@ -15,7 +15,7 @@ async function connectToRabbitMQ() {
         
                 // Create exchange in case it does not exist
                 await channel.assertExchange('account_deleted', 'fanout', {
-                    durable: false
+                    durable: true
                 });
         
                 console.log("Connected to RabbitMQ");

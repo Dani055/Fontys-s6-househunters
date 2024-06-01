@@ -15,22 +15,22 @@ async function connectToRabbitMQ() {
         
                 // Create exchange in case it does not exist
                 await channel.assertExchange('account_deleted', 'fanout', {
-                    durable: false
+                    durable: true
                 });
                 await channel.assertExchange('listing_created', 'fanout', {
-                    durable: false
+                    durable: true
                 });
                 await channel.assertExchange('listing_edited', 'fanout', {
-                    durable: false
+                    durable: true
                 });
                 await channel.assertExchange('listing_deleted', 'fanout', {
-                    durable: false
+                    durable: true
                 });
         
-                await channel.assertQueue("accountDeletedBidSub", { durable: false });
-                await channel.assertQueue("listingCreatedBidSub", { durable: false });
-                await channel.assertQueue("listingEditedBidSub", { durable: false });
-                await channel.assertQueue("listingDeletedBidSub", { durable: false });
+                await channel.assertQueue("accountDeletedBidSub", { durable: true });
+                await channel.assertQueue("listingCreatedBidSub", { durable: true });
+                await channel.assertQueue("listingEditedBidSub", { durable: true });
+                await channel.assertQueue("listingDeletedBidSub", { durable: true });
         
                 await channel.bindQueue('accountDeletedBidSub', 'account_deleted', '');
                 await channel.bindQueue('listingCreatedBidSub', 'listing_created', '');

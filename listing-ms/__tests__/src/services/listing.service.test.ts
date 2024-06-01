@@ -87,7 +87,7 @@ describe("Listing service", () => {
       const roles = ["User"];
 
       mockedRepo.getListingbyId.mockResolvedValue(listingToReturn);
-      mockedRepo.editListing.mockResolvedValue({imagesToDelete: [], listing: listingToReturn});
+      mockedRepo.editListing.mockResolvedValue(listingToReturn);
 
       // Act
       const result = await changeListing(
@@ -98,8 +98,7 @@ describe("Listing service", () => {
       );
 
       // Assert
-    expect(result.imagesToDelete).toEqual([])
-    expect(result.listing).toMatchObject(listingToReturn)
+    expect(result).toMatchObject(listingToReturn)
     });
   });
   describe("removeListing", () => {

@@ -14,12 +14,12 @@ async function connectToRabbitMQ() {
         
                 channel = await connection.createChannel();
         
-                await channel.assertExchange("media_uploaded",'fanout', { durable: false });
-                await channel.assertExchange("listing_edited",'fanout', { durable: false });
-                await channel.assertExchange("listing_deleted",'fanout', { durable: false });
+                await channel.assertExchange("media_uploaded",'fanout', { durable: true });
+                await channel.assertExchange("listing_edited",'fanout', { durable: true });
+                await channel.assertExchange("listing_deleted",'fanout', { durable: true });
         
-                await channel.assertQueue("listingEditedMediaSub", { durable: false });
-                await channel.assertQueue("listingDeletedMediaSub", { durable: false });
+                await channel.assertQueue("listingEditedMediaSub", { durable: true });
+                await channel.assertQueue("listingDeletedMediaSub", { durable: true });
                 await channel.bindQueue('listingEditedMediaSub', 'listing_edited', '');
                 await channel.bindQueue('listingDeletedMediaSub', 'listing_deleted', '');
         

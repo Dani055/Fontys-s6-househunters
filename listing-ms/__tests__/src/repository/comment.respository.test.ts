@@ -1,17 +1,7 @@
 import app from "listing-ms/index";
 import mongoose, { Types } from "mongoose";
-import dayjs from "dayjs";
-import { createCommentPayload, createListingPayload } from "shared/requests/req";
-import {
-  assignListingPhotos,
-  createListing,
-  deleteListing,
-  editListing,
-  getListingbyId,
-} from "listing-ms/src/repository/listing.repository";
-import ListingEntity, { IListing } from "listing-ms/src/models/Listing";
+import { createCommentPayload } from "shared/requests/req";
 import { ResponseError } from "shared/responses/responseError";
-import { IComment } from "listing-ms/src/models/Comment";
 import { listingForCommentsTests } from "listing-ms/jest/dummyData";
 import { createComment, deleteComment, getCommentById } from "listing-ms/src/repository/comment.repository";
 
