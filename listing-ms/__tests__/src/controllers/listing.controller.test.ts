@@ -104,10 +104,7 @@ describe("Listing controller", () => {
         _id: listingToReturn._id.toString(),
         creatorId: listingToReturn.creatorId?.toString(),
       };
-      mockedService.changeListing.mockResolvedValue({
-        imagesToDelete: [],
-        listing: listingToReturn,
-      });
+      mockedService.changeListing.mockResolvedValue(listingToReturn);
       mockJwt(mockedJwt, userForJwt);
 
       // Act

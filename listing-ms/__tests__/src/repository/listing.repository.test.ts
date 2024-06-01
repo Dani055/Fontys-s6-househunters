@@ -89,8 +89,7 @@ describe("Listing repository", () => {
       const editedListing = await editListing(createdListing, payload);
 
       // Assert
-      expect(editedListing.imagesToDelete).toMatchObject([]);
-      expect(editedListing.listing).toMatchObject(expectedListing);
+      expect(editedListing).toMatchObject(expectedListing);
     });
   });
   describe("assignListingPhotos", () => {
