@@ -22,7 +22,6 @@ git push -uf origin main
 - [ ] [Set up project integrations](https://git.fhict.nl/I476740/s6-househunters/-/settings/integrations)
 
 ## Collaborate with your team
-
 - [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
 - [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
 - [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
