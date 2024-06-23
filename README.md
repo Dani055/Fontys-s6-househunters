@@ -20,7 +20,7 @@ Functional requirements include:
  - Right to be forgotten and GDPR compliance (at least in The Netherlands)
 
 ## Project structure
-[img](./Documentation/Images/C2S6.png)
+![img](./Documentation/Images/C2S6.drawio.png)
 - The project features a React + Vite frontend, with a microservice architecture backend + RabbitMQ as a message broker. Everything architecture related can be read about in the [Architecture document](./Documentation/Architecture%20document.pdf)
 - Project is fully scalable, with it originally being uploaded to GCloud and being managed through a Kubernetes cluster.
 - Project features a CI/CD Pipeline (which does not function here, it is meant for GitLab). You can see how it functions in the [CI/CD setup](./Documentation/CICD%20setup.pdf).
