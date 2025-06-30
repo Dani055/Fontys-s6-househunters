@@ -1,16 +1,12 @@
-# S3-HouseHunters
+Househounters is built off the idea of https://github.com/Dani055/Carspace
 
-Project for the 6th semester (Advanced Software) at Fontys.
-
-## The idea
-
-The idea behind the project in the 6th semester was to build a fully scalable enterprise software application. Since it's quite hard for a single person to do that in the span of 5 months, a proof of concept also serves great.
+The idea behind the project was to build a fully scalable enterprise software application. Since it's quite hard for a single person to do that in the span of 5 months, a smaller proof of concept also serves great.
 
 ## Non-functional requirements
 The main focus of this project was non-functional requirements like
-- security
 - scalability
-- uninterrupted runtime
+- security
+- uninterrupted availability
 - GDPR compliance
 
 Functional requirements include:
@@ -24,7 +20,7 @@ Functional requirements include:
 - The project features a React + Vite frontend, with a microservice architecture backend + RabbitMQ as a message broker. Everything architecture related can be read about in the [Architecture document](./Documentation/Architecture%20document.pdf)
 - Project is fully scalable, with it originally being uploaded to GCloud and being managed through a Kubernetes cluster.
 - Project features a CI/CD Pipeline (which does not function here, it is meant for GitLab). You can see how it functions in the [CI/CD setup](./Documentation/CICD%20setup.pdf).
-- **For more info you can check out the [Portfolio](./Documentation/portfolio/), which includes everything written to the last detail, which I used to pass the semester**
+- **For more info you can check out the [Documentation](./Documentation), which includes various in-depth explanations about the project**
 
 ## How to run project
 Thankfully this project is fully Dockerized, so all you need to do is have docker installed and run one command.
