@@ -1,6 +1,6 @@
 Househounters is built off the idea of https://github.com/Dani055/Carspace
 
-The idea behind the project was to build a fully scalable enterprise software application. Since it's quite hard for a single person to do that in the span of 5 months, a smaller proof of concept also serves great.
+The idea behind the project was to transform the project into a fully scalable enterprise software application. Since it's quite hard for a single person to do that in the span of 5 months, a smaller proof of concept also serves great.
 
 ## Non-functional requirements
 The main focus of this project was non-functional requirements like
